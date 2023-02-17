@@ -1,0 +1,13 @@
+export {default as BackBtn} from './svgs/backArrow.svg';
+export {default as AgendaIcon} from './svgs/Agenda.svg';
+export {default as PlaceIcon} from './svgs/Places.svg';
+export {default as HelpingHandIcon} from './svgs/HelpingHand.svg';
+export {default as EinvitesIcon} from './svgs/Einvites.svg';
+export {default as SpeakerIcon} from './svgs/Speaker.svg';
+export {default as LeaderIcon} from './svgs/Leaders.svg';
+export {default as DelegatesIcon} from './svgs/Delegates.svg';
+export {default as InteractionIcon} from './svgs/Interaction.svg';
+export {default as AccomodationIcon} from './svgs/Accomodation.svg';
+export {default as HRSummitMinutesIcon} from './svgs/HRSummitMinutes.svg';
+export {default as GalleryIcon} from './svgs/gallery.svg';
+export {default as ActivitiesIcon} from './svgs/activities.svg';
