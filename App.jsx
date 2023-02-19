@@ -2,7 +2,6 @@ import React from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import Routes from './Routes';
 import {RNstatusBar} from './src/components';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {COLOR} from './src/constants/GlobalTheme';
 
 const App = () => {
