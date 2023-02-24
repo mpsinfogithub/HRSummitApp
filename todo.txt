@@ -1,0 +1,18 @@
+Accomodation
+[-] add +91 with the number
+[-] add a google maps location link
+
+home page data
+[-] add no. of the HR summit (eg : 59th )
+[-] add place name
+[-] caresole images
+[-] Whatsapp community link
+
+HR summit page
+[-] add title
+[-] add date
+[-] add venue
+
+about place page
+[-] place name (optional if place name send in home page data )
+[-] place image

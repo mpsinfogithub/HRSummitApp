@@ -16,12 +16,16 @@ import {
 import {hp, COLOR, FONTS} from '../constants/GlobalTheme';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import RNBottomSheet from '../components/shared/RNBottomSheet';
+import {useDispatch} from 'react-redux';
+import {logoutUser} from '../redux/authSlice';
 
 const Profile = () => {
   const [passwordModal, setPasswordModal] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
   const togglePasswordModal = () => setPasswordModal(!passwordModal);
   const toggleProfileModal = () => setProfileModal(!profileModal);
+
+  const dispatch = useDispatch();
 
   const Options = [
     {
@@ -105,6 +109,7 @@ const Profile = () => {
             </View>
           ))}
           <RNButton
+            onClick={() => dispatch(logoutUser())}
             leftIcon={
               <FeatherIcon
                 size={20}

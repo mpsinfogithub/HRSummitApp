@@ -3,6 +3,7 @@ export {default as RNInput} from './shared/RNInput';
 export {default as RNButton} from './shared/RNButton';
 export {default as HeaderBar} from './shared/HeaderBar';
 export {default as TimelineCards} from './shared/TimelineCard';
+export {default as Loader} from './shared/Loader';
 
 //modals
 export {default as PasswordChangeModal} from './Modals/ChangePasswordModal';

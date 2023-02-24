@@ -26,9 +26,11 @@ import {
 } from '../../assets';
 import {useNavigation} from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import {useSelector} from 'react-redux';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const {user} = useSelector(state => state.auth);
   const navigation = useNavigation();
 
   const caresoleImages = [
@@ -145,13 +147,15 @@ const Home = () => {
             />
           </View>
           <View style={{marginLeft: hp(1)}}>
-            <Text style={{fontFamily: FONTS.bold}}>Hey Animesh</Text>
+            <Text style={{fontFamily: FONTS.bold}}>
+              Hey {user?.name?.split(' ')[0]}
+            </Text>
             <Text style={{fontFamily: FONTS.regular, fontSize: 12}}>
               TCP co
             </Text>
           </View>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('Notifications')}
           style={{
             borderWidth: 1,
@@ -163,7 +167,7 @@ const Home = () => {
             backgroundColor: COLOR.white,
           }}>
           <FeatherIcon name="bell" size={18} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* caresole  */}
