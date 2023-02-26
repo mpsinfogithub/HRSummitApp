@@ -1,19 +1,18 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  FlatList,
-} from 'react-native';
+import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar} from '../components';
 import {COLOR, FONTS, hp, wp} from '../constants/GlobalTheme';
 import {useNavigation} from '@react-navigation/native';
+import useFetch from '../hooks/useFetch';
 
 const DelegateCard = ({delegate}) => {
   const navigation = useNavigation();
+  const {data: delegatesData, loading: delegatesLoading} = useFetch({
+    url: '/all-deligate',
+    method: 'get',
+  });
+
   return (
     <View
       style={{

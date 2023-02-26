@@ -1,13 +1,19 @@
-import {View, Text, StyleSheet, TouchableOpacity, Linking} from 'react-native';
+import {StyleSheet, TouchableOpacity, Linking} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeScreen, ProfileScreen} from '../screens';
-import {COLOR, wp, hp} from '../constants/GlobalTheme';
+import {COLOR, hp} from '../constants/GlobalTheme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import useFetch from '../hooks/useFetch';
 
 const Tab = createBottomTabNavigator();
 
 const TabStack = () => {
+  const {data: HomeData} = useFetch({
+    url: '/home',
+    method: 'get',
+  });
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -32,11 +38,7 @@ const TabStack = () => {
         options={{
           tabBarButton: props => (
             <TouchableOpacity
-              onPress={() =>
-                Linking.openURL(
-                  'https://chat.whatsapp.com/Kr1DkJp8NugHTAjovLDybg',
-                )
-              }
+              onPress={() => Linking.openURL(HomeData?.whatsapp_community_link)}
               style={styles.TabMainButton}>
               <Ionicons name="logo-whatsapp" size={15} color={COLOR.white} />
             </TouchableOpacity>

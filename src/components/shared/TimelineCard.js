@@ -2,8 +2,11 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import {COLOR, FONTS} from '../../constants/GlobalTheme';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import moment from 'moment';
+import {tConvert} from '../../utils/helpers';
 
 const TimelineCard = ({data}) => {
+  console.log(data);
   return (
     <View>
       {data.map((data, index) => (
@@ -36,7 +39,7 @@ const TimelineCard = ({data}) => {
                 fontSize: 12,
                 color: COLOR.gray,
               }}>
-              {data.eventStartTime} - {data.eventEndTime}
+              {tConvert(data?.begin)} - {tConvert(data?.end)}
             </Text>
             <Text
               style={{
@@ -45,7 +48,7 @@ const TimelineCard = ({data}) => {
                 lineHeight: 20,
                 marginTop: 3,
               }}>
-              {data.description}
+              {data.title}
             </Text>
           </View>
         </View>

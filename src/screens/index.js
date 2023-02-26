@@ -15,3 +15,4 @@ export {default as MinutesHRSummitScreen} from './HRSummit';
 export {default as GalleryScreen} from './Gallery';
 export {default as ActivitiesScreen} from './Activities';
 export {default as NotificationsScreen} from './Notifications';
+export {default as LayoutScreen} from './ScreenLayout';

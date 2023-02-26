@@ -12,6 +12,7 @@ import {HeaderBar, Loader} from '../components';
 import {COLOR, hp, wp} from '../constants/GlobalTheme';
 import ImageView from 'react-native-image-viewing';
 import useFetch from '../hooks/useFetch';
+import {LayoutScreen} from '.';
 
 const Gallery = () => {
   const [visible, setIsVisible] = useState(false);
@@ -47,48 +48,56 @@ const Gallery = () => {
   }
 
   return (
-    <SafeAreaView>
-      <HeaderBar headerTitle="Gallery" />
-      <FlatList
-        data={Images()}
-        numColumns={3}
-        contentContainerStyle={{width: '90%', alignSelf: 'center'}}
-        columnWrapperStyle={{justifyContent: 'flex-start', marginBottom: 15}}
-        renderItem={({item, index}) => (
-          <TouchableOpacity
-            onPress={() => {
-              setIsVisible(!visible);
-              setImageIndex(index);
-            }}
-            key={index}
-            style={{
-              height: wp(25),
-              marginLeft: 15,
-              width: wp(25),
-              borderRadius: 10,
-            }}>
-            <Image
-              source={{uri: item}}
-              style={{width: '100%', height: '100%', borderRadius: 10}}
-            />
-          </TouchableOpacity>
-        )}
-      />
-      <ImageView
-        images={ImagesArr()}
-        imageIndex={imageIndex}
-        visible={visible}
-        FooterComponent={({imageIndex}) => (
-          <View
-            style={{position: 'absolute', bottom: hp(3), alignSelf: 'center'}}>
-            <Text style={{color: COLOR.primary}}>
-              {imageIndex + 1}/{Images.length}
-            </Text>
-          </View>
-        )}
-        onRequestClose={() => setIsVisible(false)}
-      />
-    </SafeAreaView>
+    <LayoutScreen
+      loading={ImagesLoading}
+      scrollable={false}
+      headerBar={<HeaderBar headerTitle="Gallery" />}>
+      <>
+        <FlatList
+          data={Images()}
+          numColumns={3}
+          contentContainerStyle={{width: '90%', alignSelf: 'center'}}
+          columnWrapperStyle={{justifyContent: 'flex-start', marginBottom: 15}}
+          renderItem={({item, index}) => (
+            <TouchableOpacity
+              onPress={() => {
+                setIsVisible(!visible);
+                setImageIndex(index);
+              }}
+              key={index}
+              style={{
+                height: wp(25),
+                marginLeft: 15,
+                width: wp(25),
+                borderRadius: 10,
+              }}>
+              <Image
+                source={{uri: item}}
+                style={{width: '100%', height: '100%', borderRadius: 10}}
+              />
+            </TouchableOpacity>
+          )}
+        />
+        <ImageView
+          images={ImagesArr()}
+          imageIndex={imageIndex}
+          visible={visible}
+          FooterComponent={({imageIndex}) => (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: hp(3),
+                alignSelf: 'center',
+              }}>
+              <Text style={{color: COLOR.primary}}>
+                {imageIndex + 1}/{Images.length}
+              </Text>
+            </View>
+          )}
+          onRequestClose={() => setIsVisible(false)}
+        />
+      </>
+    </LayoutScreen>
   );
 };
 
