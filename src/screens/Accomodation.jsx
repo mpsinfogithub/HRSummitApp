@@ -62,7 +62,7 @@ const Accomodation = () => {
                 justifyContent: 'space-between',
                 marginVertical: 15,
               }}>
-              <View style={{width: '80%'}}>
+              <View style={{width: '85%'}}>
                 <Text
                   style={{
                     fontFamily: FONTS.semiBold,
@@ -75,7 +75,7 @@ const Accomodation = () => {
                   style={{
                     fontFamily: FONTS.regular,
                     color: COLOR.gray,
-                    lineHeight: 24,
+                    lineHeight: 20,
                   }}>
                   {accomodation?.sub_title}
                 </Text>

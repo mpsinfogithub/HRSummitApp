@@ -90,7 +90,7 @@ const Gallery = () => {
                 alignSelf: 'center',
               }}>
               <Text style={{color: COLOR.primary}}>
-                {imageIndex + 1}/{Images.length}
+                {imageIndex + 1}/{ImagesArr()?.length}
               </Text>
             </View>
           )}

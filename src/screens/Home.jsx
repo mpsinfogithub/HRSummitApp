@@ -78,18 +78,18 @@ const Home = () => {
       routeName: 'Place',
     },
     {
-      id: 3,
-      name: 'Happy \nto help',
-      data: {},
-      icon: <HelpingHandIcon />,
-      routeName: 'Help',
-    },
-    {
       id: 4,
       name: 'e-invites',
       data: {},
       icon: <EinvitesIcon />,
       routeName: 'Einvites',
+    },
+    {
+      id: 9,
+      name: 'Accommodation',
+      data: {},
+      icon: <AccomodationIcon />,
+      routeName: 'Accomodation',
     },
     {
       id: 5,
@@ -106,13 +106,6 @@ const Home = () => {
       routeName: 'Leaders',
     },
     {
-      id: 7,
-      name: 'Interaction',
-      data: {},
-      icon: <InteractionIcon />,
-      routeName: 'Interaction',
-    },
-    {
       id: 8,
       name: 'Delegates',
       data: {},
@@ -120,11 +113,11 @@ const Home = () => {
       routeName: 'Delegates',
     },
     {
-      id: 9,
-      name: 'Accommodation',
+      id: 7,
+      name: 'Feedback',
       data: {},
-      icon: <AccomodationIcon />,
-      routeName: 'Accomodation',
+      icon: <InteractionIcon />,
+      routeName: 'Interaction',
     },
     {
       id: 10,
@@ -146,6 +139,13 @@ const Home = () => {
       data: {},
       icon: <ActivitiesIcon />,
       routeName: 'Activities',
+    },
+    {
+      id: 3,
+      name: 'Happy \nto help',
+      data: {},
+      icon: <HelpingHandIcon />,
+      routeName: 'Help',
     },
   ];
 

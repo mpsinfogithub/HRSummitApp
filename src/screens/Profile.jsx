@@ -10,14 +10,18 @@ import {
 import {hp, COLOR, FONTS} from '../constants/GlobalTheme';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import RNBottomSheet from '../components/shared/RNBottomSheet';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {logoutUser} from '../redux/authSlice';
+import ImagePicker from 'react-native-image-crop-picker';
+import {apiRequest} from '../utils/api';
 
 const Profile = () => {
   const [passwordModal, setPasswordModal] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
   const togglePasswordModal = () => setPasswordModal(!passwordModal);
   const toggleProfileModal = () => setProfileModal(!profileModal);
+  const {user} = useSelector(state => state.auth);
+  const [imageLoading, setImageLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -34,6 +38,35 @@ const Profile = () => {
     },
   ];
 
+  const uploadImage = image => {
+    let formData = new FormData();
+    formData.append('id', user?.user_id);
+    formData.append('photo', image);
+
+    fetch('http://tcpindia.net/hrsummit/api/update-profile-picture', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${user?.token}`,
+      },
+      body: formData,
+    })
+      .then(d => d.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err.message));
+  };
+
+  const openImagePicker = () => {
+    ImagePicker.openPicker({
+      cropping: true,
+      compressImageQuality: 0.5,
+    })
+      .then(image => {
+        uploadImage(image);
+      })
+      .catch(err => console.log(err.message));
+  };
+
   return (
     <SafeAreaView>
       <HeaderBar headerTitle="Profile" hideBackBtn />
@@ -44,7 +77,8 @@ const Profile = () => {
         }}>
         {/* User image area  */}
         <View style={{alignItems: 'center', marginVertical: hp(2)}}>
-          <View
+          <TouchableOpacity
+            onPress={openImagePicker}
             style={{
               width: hp(15),
               height: hp(15),
@@ -56,7 +90,7 @@ const Profile = () => {
               resizeMode="cover"
               source={require('../../assets/Images/noProfile.png')}
             />
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* tiles section  */}

@@ -5,12 +5,14 @@ import {
   TouchableOpacity,
   ScrollView,
   ToastAndroid,
+  KeyboardAvoidingView,
+  StatusBar,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLOR, FONTS, hp} from '../constants/GlobalTheme';
 import {RNButton, RNInput} from '../components';
-import {useNavigation} from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {apiRequest} from '../utils/api';
 import {useDispatch} from 'react-redux';
@@ -19,7 +21,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
-const LoginComponent = () => {
+const LoginComponent = ({toggleMode}) => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -39,7 +41,8 @@ const LoginComponent = () => {
 
       if (res?.status !== 200 || res?.data?.status !== 200) {
         setLoading(false);
-        ToastAndroid.show(res?.data?.message, 1000);
+        // ToastAndroid.show(res?.data?.message, 1000);
+        console.log(res?.data?.message);
         toggleMode(1);
         return;
       }
@@ -55,12 +58,12 @@ const LoginComponent = () => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      console.log(err.message);
+      console.error(err);
     }
   };
 
   return (
-    <View style={{width: '85%', marginVertical: hp(3)}}>
+    <View style={{width: '85%', flex: 1, marginVertical: hp(3)}}>
       <Formik
         validationSchema={LoginSchema}
         initialValues={{
@@ -69,7 +72,6 @@ const LoginComponent = () => {
         }}
         onSubmit={values => {
           login(values);
-          console.log(values);
         }}>
         {({handleChange, handleSubmit, values, errors}) => (
           <View>
@@ -216,14 +218,21 @@ const Login = () => {
 
   return (
     <ScrollView>
-      <SafeAreaView style={{flex: 1, backgroundColor: COLOR.lighGray}}>
+      <StatusBar backgroundColor={COLOR.lighGray} />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' && 'position'}
+        style={{flex: 1, backgroundColor: COLOR.lighGray}}>
         <View
           style={{
             height: hp(30),
+            justifyContent: 'flex-end',
             alignItems: 'center',
-            justifyContent: 'center',
           }}>
-          <Image source={require('../../assets/Images/Logo.png')} />
+          <Image
+            resizeMode="contain"
+            source={require('../../assets/Images/Logo.png')}
+            style={{width: '40%', height: '80%'}}
+          />
         </View>
         <View
           style={{
@@ -246,14 +255,17 @@ const Login = () => {
           </Text>
           <View
             style={{
-              marginTop: hp(2),
               flexDirection: 'row',
               alignItems: 'center',
             }}>
             {MODES.map((item, index) => (
               <TouchableOpacity
                 key={index}
-                style={{marginRight: 15, alignItems: 'center'}}
+                style={{
+                  marginRight: 15,
+                  alignItems: 'center',
+                  marginTop: hp(1.5),
+                }}
                 onPress={() => setActiveMode(item)}>
                 <Text
                   style={{
@@ -273,18 +285,17 @@ const Login = () => {
             <SignUpComponent toggleMode={toggleMode} />
           )}
           {activeMode === MODES[0] && (
-            <>
+            <View style={{flex: 0.5}}>
               <View
                 style={{
-                  flex: 0.5,
                   justifyContent: 'center',
                   alignItems: 'center',
                   flexDirection: 'row',
-                  marginVertical: hp(1),
+                  marginBottom: 15,
                 }}>
                 {sponserImages.map((image, index) => (
                   <View
-                    style={{width: 55, height: 55, marginRight: hp(1.5)}}
+                    style={{width: 50, height: 50, marginRight: hp(1.5)}}
                     key={index}>
                     <Image
                       style={{height: '100%', width: '100%'}}
@@ -294,13 +305,18 @@ const Login = () => {
                   </View>
                 ))}
               </View>
-              <Text style={{fontFamily: FONTS.regular, marginTop: 10}}>
+              <Text
+                style={{
+                  fontFamily: FONTS.regular,
+                  fontSize: 12,
+                  textAlign: 'center',
+                }}>
                 Hosted by TCP Company pvt.Ltd
               </Text>
-            </>
+            </View>
           )}
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };

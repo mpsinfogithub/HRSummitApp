@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, Linking} from 'react-native';
+import {StyleSheet, TouchableOpacity, Linking, Platform} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeScreen, ProfileScreen} from '../screens';
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   TabIconStyles: {
-    top: 15,
+    top: Platform.OS === 'ios' ? 0 : 15,
   },
   TabMainButton: {
     width: 35,

@@ -24,7 +24,7 @@ const Place = ({route}) => {
       loading={aboutLoading}
       headerBar={<HeaderBar headerTitle={routeData?.placeName} />}>
       <>
-        <View style={{height: hp(25), marginVertical: 8}}>
+        <View style={{height: hp(25)}}>
           <Image
             source={{uri: data.image}}
             style={{width: '100%', height: '100%'}}

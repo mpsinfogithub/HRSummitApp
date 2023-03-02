@@ -6,6 +6,7 @@ import {COLOR} from './src/constants/GlobalTheme';
 import store, {persistor} from './src/redux/store';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
+
 import axios from 'axios';
 axios.defaults.baseURL = 'http://tcpindia.net/hrsummit/api';
 

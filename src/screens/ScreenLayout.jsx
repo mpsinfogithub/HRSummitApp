@@ -1,4 +1,4 @@
-import {View, Text, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Loader} from '../components';
@@ -13,7 +13,7 @@ const ScreenLayout = ({
   return (
     <SafeAreaView style={{flex: 1}}>
       {headerBar}
-      <View style={{flex: 1, marginTop: hp(1)}}>
+      <View style={{flex: 1, marginTop: hp(0.5)}}>
         {loading ? (
           <Loader />
         ) : scrollable ? (

@@ -6,7 +6,6 @@ import moment from 'moment';
 import {tConvert} from '../../utils/helpers';
 
 const TimelineCard = ({data}) => {
-  console.log(data);
   return (
     <View>
       {data.map((data, index) => (

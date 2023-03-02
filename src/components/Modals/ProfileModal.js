@@ -13,7 +13,6 @@ const ProfileModal = () => {
     userName: user?.name,
   });
 
-  console.log(user);
   return (
     <View style={{paddingHorizontal: hp(3)}}>
       <RNInput

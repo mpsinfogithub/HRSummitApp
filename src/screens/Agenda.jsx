@@ -13,6 +13,8 @@ const Agenda = () => {
     method: 'get',
   });
 
+  console.log(agendaData);
+
   const Events = () => {
     let data = [];
     agendaData?.agenda?.map(agenda => {

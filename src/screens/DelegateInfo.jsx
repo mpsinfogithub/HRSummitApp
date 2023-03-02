@@ -3,8 +3,20 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar} from '../components';
 import {COLOR, FONTS, hp, wp} from '../constants/GlobalTheme';
+import useFetch from '../hooks/useFetch';
+import {LayoutScreen} from '.';
 
 const Card = ({data}) => {
+  const formatData = () => {
+    return {
+      name: data?.name,
+      company: data?.company,
+      destination: data?.designation,
+      email: data?.email,
+      phone: data?.phone,
+    };
+  };
+
   return (
     <View
       style={{
@@ -15,7 +27,7 @@ const Card = ({data}) => {
         borderWidth: 1,
         borderColor: COLOR.lighGray,
       }}>
-      {Object.entries(data).map(([key, value], index) => (
+      {Object.entries(formatData()).map(([key, value], index) => (
         <Text
           style={{
             fontFamily: FONTS.semiBold,
@@ -33,47 +45,28 @@ const Card = ({data}) => {
   );
 };
 
-const DelegateInfo = () => {
-  const delegateData = [
-    {
-      name: 'some name',
-      company: 'some company',
-      destination: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      email: 'someemail@gmail.com',
-      phone: '+9186725742',
-    },
-    {
-      name: 'some name',
-      company: 'some company',
-      destination: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      email: 'someemail@gmail.com',
-      phone: '+9186725742',
-    },
-    {
-      name: 'some name',
-      company: 'some company',
-      destination: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      email: 'someemail@gmail.com',
-      phone: '+9186725742',
-    },
-    {
-      name: 'some name',
-      company: 'some company',
-      destination: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      email: 'someemail@gmail.com',
-      phone: '+9186725742',
-    },
-  ];
+const DelegateInfo = ({route}) => {
+  const {id, name} = route.params;
+
+  const {data: delegateData, loading: delegateLoading} = useFetch({
+    url: `/deligate-detail/${id}`,
+    method: 'get',
+  });
+
   return (
-    <SafeAreaView>
-      <HeaderBar headerTitle="Delegate Name" />
-      <FlatList
-        contentContainerStyle={{marginTop: 10}}
-        data={delegateData}
-        keyExtractor={(item, index) => index}
-        renderItem={({item, index}) => <Card data={item} />}
-      />
-    </SafeAreaView>
+    <LayoutScreen
+      headerBar={<HeaderBar headerTitle={`${name} - Delegates`} />}
+      scrollable={false}
+      loading={delegateLoading}>
+      <>
+        <FlatList
+          contentContainerStyle={{marginTop: 10}}
+          data={delegateData?.deligate_detail}
+          keyExtractor={(item, index) => index}
+          renderItem={({item, index}) => <Card data={item} />}
+        />
+      </>
+    </LayoutScreen>
   );
 };
 
