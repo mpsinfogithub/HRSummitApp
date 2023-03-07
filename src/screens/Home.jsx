@@ -66,7 +66,7 @@ const Home = () => {
     {
       id: 1,
       name: 'Agenda',
-      data: {},
+      data: {title: HomeData?.home?.agenda_title},
       icon: <AgendaIcon />,
       routeName: 'Agenda',
     },
@@ -178,7 +178,7 @@ const Home = () => {
               Hey {user?.name?.split(' ')[0]}
             </Text>
             <Text style={{fontFamily: FONTS.regular, fontSize: 12}}>
-              TCP co
+              TCP DIGIWORKS
             </Text>
           </View>
         </View>

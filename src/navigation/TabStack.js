@@ -38,7 +38,9 @@ const TabStack = () => {
         options={{
           tabBarButton: props => (
             <TouchableOpacity
-              onPress={() => Linking.openURL(HomeData?.whatsapp_community_link)}
+              onPress={() =>
+                Linking.openURL(HomeData?.home?.whatsapp_community_link)
+              }
               style={styles.TabMainButton}>
               <Ionicons name="logo-whatsapp" size={15} color={COLOR.white} />
             </TouchableOpacity>

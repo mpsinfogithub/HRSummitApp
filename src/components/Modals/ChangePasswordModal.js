@@ -1,4 +1,4 @@
-import {Platform, View} from 'react-native';
+import {Platform, ToastAndroid, View} from 'react-native';
 import React from 'react';
 import RNInput from '../shared/RNInput';
 import RNButton from '../shared/RNButton';
@@ -6,8 +6,11 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useState} from 'react';
 import {COLOR, hp} from '../../constants/GlobalTheme';
+import {useSelector} from 'react-redux';
+import {apiRequest} from '../../utils/api';
 
 const ChangePassword = ({toggleModal}) => {
+  const {user} = useSelector(state => state.auth);
   const [loading, setLoading] = useState(false);
   const chnagePasswordSchema = Yup.object().shape({
     current_password: Yup.string()
@@ -21,6 +24,30 @@ const ChangePassword = ({toggleModal}) => {
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
       .required(),
   });
+
+  const submitPassword = async values => {
+    try {
+      setLoading(true);
+      const res = await apiRequest({
+        url: '/update-password',
+        method: 'post',
+        body: {id: user?.user_id, ...values},
+      });
+
+      if (res?.status !== 200) {
+        setLoading(false);
+        ToastAndroid.show(res?.data?.message, 1000);
+        return;
+      }
+
+      ToastAndroid.show('Password updated', 1000);
+      setLoading(false);
+      toggleModal();
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
 
   return (
     <View
@@ -60,6 +87,7 @@ const ChangePassword = ({toggleModal}) => {
             />
             <RNButton
               loading={loading}
+              onClick={handleSubmit}
               title={'Change Password'}
               customContainerStyles={{
                 marginBottom: Platform.OS == 'ios' ? hp(3.5) : hp(2),

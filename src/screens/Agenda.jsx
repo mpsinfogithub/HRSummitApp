@@ -7,13 +7,13 @@ import useFetch from '../hooks/useFetch';
 import moment from 'moment';
 import {LayoutScreen} from '.';
 
-const Agenda = () => {
+const Agenda = ({route}) => {
+  const {title} = route.params;
+
   const {data: agendaData, loading: agendaLoading} = useFetch({
     url: '/all-agenda',
     method: 'get',
   });
-
-  console.log(agendaData);
 
   const Events = () => {
     let data = [];
@@ -51,7 +51,7 @@ const Agenda = () => {
               fontSize: 16,
               color: COLOR.white,
             }}>
-            60 th HR Summit Mussorie 2022
+            {title}
           </Text>
         </LinearGradient>
 

@@ -41,8 +41,7 @@ const LoginComponent = ({toggleMode}) => {
 
       if (res?.status !== 200 || res?.data?.status !== 200) {
         setLoading(false);
-        // ToastAndroid.show(res?.data?.message, 1000);
-        console.log(res?.data?.message);
+        ToastAndroid.show(res?.data?.message, 1000);
         toggleMode(1);
         return;
       }
@@ -87,6 +86,7 @@ const LoginComponent = ({toggleMode}) => {
               error={errors.password}
               onChangeText={handleChange('password')}
               placeholder="Password"
+              secureEntry={true}
               leftIcon={<FeatherIcon name="lock" size={15} />}
             />
             <RNButton

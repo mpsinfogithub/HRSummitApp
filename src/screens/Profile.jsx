@@ -21,7 +21,6 @@ const Profile = () => {
   const togglePasswordModal = () => setPasswordModal(!passwordModal);
   const toggleProfileModal = () => setProfileModal(!profileModal);
   const {user} = useSelector(state => state.auth);
-  const [imageLoading, setImageLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -38,28 +37,30 @@ const Profile = () => {
     },
   ];
 
-  const uploadImage = image => {
+  const uploadImage = async image => {
     let formData = new FormData();
     formData.append('id', user?.user_id);
-    formData.append('photo', image);
+    formData.append('photo', image?.data);
 
-    fetch('http://tcpindia.net/hrsummit/api/update-profile-picture', {
-      method: 'PUT',
-      headers: {
+    const data = {id: user?.user_id, photo: image?.data};
+
+    const res = await apiRequest({
+      body: data,
+      method: 'POST',
+      url: '/update-profile-picture',
+      header: {
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${user?.token}`,
       },
-      body: formData,
-    })
-      .then(d => d.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err.message));
+    });
+
+    console.log(res?.data);
   };
 
   const openImagePicker = () => {
     ImagePicker.openPicker({
       cropping: true,
       compressImageQuality: 0.5,
+      includeBase64: true,
     })
       .then(image => {
         uploadImage(image);
@@ -160,7 +161,7 @@ const Profile = () => {
               resizeMode="contain"
               source={require('../../assets/Images/Logo.png')}
             />
-            <Text>All Copyright reserved</Text>
+            <Text>Copyright by TCP DIGIWORKS</Text>
           </View>
         </View>
       </View>

@@ -1,29 +1,24 @@
 import {View, Text, ScrollView, Image} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar} from '../components';
 import {COLOR, FONTS, hp} from '../constants/GlobalTheme';
+import useFetch from '../hooks/useFetch';
+import {LayoutScreen} from '.';
+import moment from 'moment';
 
 const Einvites = () => {
-  const Invites = [
-    {
-      image:
-        'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-      title: 'Cultural evening',
-      date: '24th Aug 2022 , Day 1',
-    },
-    {
-      image:
-        'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-      title: 'Cultural Night',
-      date: '24th Aug 2022 , Day 1',
-    },
-  ];
+  const {data: einvitesData, loading: einvitesLoading} = useFetch({
+    url: '/all-einvite',
+    method: 'get',
+  });
+
   return (
-    <SafeAreaView>
-      <HeaderBar headerTitle="E-invites" />
+    <LayoutScreen
+      loading={einvitesLoading}
+      headerBar={<HeaderBar headerTitle="E-invites" />}
+      scrollable={false}>
       <ScrollView style={{width: '85%', alignSelf: 'center'}}>
-        {Invites.map((invite, index) => (
+        {einvitesData?.einvite.map((invite, index) => (
           <View
             key={index}
             style={{
@@ -42,20 +37,26 @@ const Einvites = () => {
                   borderTopRightRadius: 10,
                 }}
                 resizeMode="cover"
-                source={{uri: invite.image}}
+                source={{
+                  uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${invite.photo}`,
+                }}
               />
             </View>
             <View style={{padding: 10}}>
-              <Text style={{fontFamily: FONTS.semiBold}}>{invite.title}</Text>
+              <Text style={{fontFamily: FONTS.semiBold}}>{invite?.des}</Text>
               <Text
-                style={{fontFamily: FONTS.regular, fontSize: 12, marginTop: 3}}>
-                {invite.date}
+                style={{
+                  fontFamily: FONTS.regular,
+                  fontSize: 12,
+                  marginTop: 3,
+                }}>
+                {moment(invite?.event_date).format('LL')}
               </Text>
             </View>
           </View>
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </LayoutScreen>
   );
 };
 

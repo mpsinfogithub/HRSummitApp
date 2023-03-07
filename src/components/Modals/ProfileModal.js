@@ -25,12 +25,12 @@ const ProfileModal = () => {
         placeholder="User Name"
         value={userDetails?.userName}
       />
-      <RNButton
+      {/* <RNButton
         title={'Update Details'}
         customContainerStyles={{
           marginBottom: Platform.OS == 'ios' ? hp(3.5) : hp(2),
         }}
-      />
+      /> */}
     </View>
   );
 };
