@@ -7,7 +7,7 @@ export {default as HelpScreen} from './Help';
 export {default as EinvitesScreen} from './Einvites';
 export {default as SpeakersScreen} from './Speakers';
 export {default as LeadersScreen} from './Leaders';
-export {default as InteractionScreen} from './Interaction';
+export {default as FeedbackScreen} from './Feedback';
 export {default as DelegatesScreen} from './Delegates';
 export {default as DelegateInfoScreen} from './DelegateInfo';
 export {default as AccomodationScreen} from './Accomodation';

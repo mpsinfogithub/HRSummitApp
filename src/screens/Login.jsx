@@ -10,7 +10,6 @@ import {
   Platform,
 } from 'react-native';
 import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLOR, FONTS, hp} from '../constants/GlobalTheme';
 import {RNButton, RNInput} from '../components';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -42,7 +41,6 @@ const LoginComponent = ({toggleMode}) => {
       if (res?.status !== 200 || res?.data?.status !== 200) {
         setLoading(false);
         ToastAndroid.show(res?.data?.message, 1000);
-        toggleMode(1);
         return;
       }
 
@@ -75,7 +73,7 @@ const LoginComponent = ({toggleMode}) => {
         {({handleChange, handleSubmit, values, errors}) => (
           <View>
             <RNInput
-              placeholder="Email address"
+              placeholder="Email"
               value={values.email}
               error={errors.email}
               onChangeText={handleChange('email')}
@@ -84,6 +82,7 @@ const LoginComponent = ({toggleMode}) => {
             <RNInput
               value={values.password}
               error={errors.password}
+              secureTextEntry={true}
               onChangeText={handleChange('password')}
               placeholder="Password"
               secureEntry={true}
@@ -139,7 +138,7 @@ const SignUpComponent = ({toggleMode}) => {
   };
 
   return (
-    <ScrollView style={{width: '85%', marginVertical: hp(3)}}>
+    <ScrollView style={{width: '85%', marginTop: hp(3)}}>
       <Formik
         validationSchema={RegisterSchema}
         initialValues={{
@@ -166,7 +165,7 @@ const SignUpComponent = ({toggleMode}) => {
               leftIcon={<FeatherIcon name="user" size={18} />}
             />
             <RNInput
-              placeholder="Email address"
+              placeholder="Email"
               value={values.email}
               onChangeText={handleChange('email')}
               error={errors.email}
@@ -181,6 +180,7 @@ const SignUpComponent = ({toggleMode}) => {
             />
             <RNInput
               placeholder="Password"
+              secureTextEntry={true}
               value={values.password}
               onChangeText={handleChange('password')}
               error={errors.password}
@@ -188,6 +188,7 @@ const SignUpComponent = ({toggleMode}) => {
             />
             <RNInput
               placeholder="Confirm Password"
+              secureTextEntry={true}
               value={values.confirm_password}
               onChangeText={handleChange('confirm_password')}
               error={errors.confirm_password}
@@ -224,22 +225,22 @@ const Login = () => {
         style={{flex: 1, backgroundColor: COLOR.lighGray}}>
         <View
           style={{
-            height: hp(30),
+            height: hp(35),
             justifyContent: 'flex-end',
             alignItems: 'center',
           }}>
           <Image
             resizeMode="contain"
             source={require('../../assets/Images/Logo.png')}
-            style={{width: '40%', height: '80%'}}
+            style={{width: '50%', height: '80%'}}
           />
         </View>
         <View
           style={{
-            height: hp(70),
+            height: hp(65),
             alignItems: 'center',
           }}>
-          <Text style={{fontFamily: FONTS.bold, fontSize: 24}}>
+          {/* <Text style={{fontFamily: FONTS.bold, fontSize: 24}}>
             Get Started with TCP
           </Text>
           <Text
@@ -252,7 +253,7 @@ const Login = () => {
               lineHeight: 23,
             }}>
             Provide your credentials recieved from TCP in your Email address
-          </Text>
+          </Text> */}
           <View
             style={{
               flexDirection: 'row',
@@ -307,11 +308,10 @@ const Login = () => {
               </View>
               <Text
                 style={{
-                  fontFamily: FONTS.regular,
-                  fontSize: 12,
+                  fontFamily: FONTS.medium,
                   textAlign: 'center',
                 }}>
-                Hosted by TCP Company pvt.Ltd
+                Developed by TCP Digiworks
               </Text>
             </View>
           )}

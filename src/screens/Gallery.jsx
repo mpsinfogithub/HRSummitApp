@@ -1,4 +1,11 @@
-import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar, Loader} from '../components';
@@ -6,7 +13,6 @@ import {COLOR, FONTS, hp, wp} from '../constants/GlobalTheme';
 import ImageView from 'react-native-image-viewing';
 import useFetch from '../hooks/useFetch';
 import Video from 'react-native-video';
-import RNBottomSheet from '../components/shared/RNBottomSheet';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 const ImagesSection = () => {
@@ -96,11 +102,14 @@ const ImagesSection = () => {
 
 const VideosScreeen = () => {
   const [videoBottomSheet, setVideoBottomSheet] = useState(false);
+  const [buffering, setBuffering] = useState(false);
 
   const {data: videoData, loading: videosLoading} = useFetch({
     url: '/all-video',
     method: 'get',
   });
+
+  console.log(videoData);
 
   if (videosLoading) {
     return <Loader />;
@@ -148,21 +157,36 @@ const VideosScreeen = () => {
         <>
           <AntDesignIcon
             size={24}
+            color={Platform.OS === 'ios' ? COLOR.white : 'black'}
             onPress={() => setVideoBottomSheet(!videoBottomSheet)}
             name="closecircle"
             style={{
               position: 'absolute',
               zIndex: 3,
               elevation: 3,
-              top: hp(3),
+              top: Platform.OS === 'ios' ? hp(7) : hp(3),
               right: hp(3),
             }}
           />
-
+          {buffering && (
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                zIndex: 5,
+              }}>
+              <Loader />
+            </View>
+          )}
           <Video
             source={{
               uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${videoData?.all_video?.[0]?.photo}`,
             }}
+            onLoadStart={() => setBuffering(true)}
+            onLoad={() => setBuffering(false)}
             controls={true}
             posterResizeMode="center"
             resizeMode="contain"
@@ -213,10 +237,11 @@ const Gallery = () => {
                 backgroundColor:
                   item === currentMode ? COLOR.primary : 'transparent',
                 color: item === currentMode ? COLOR.white : COLOR.darkBlue,
-                borderWidth: item !== currentMode ? 1 : 0,
+                borderWidth: 1,
+                borderColor:
+                  item === currentMode ? COLOR.primary : COLOR.darkBlue,
                 paddingVertical: 5,
                 paddingHorizontal: 10,
-                borderRadius: 5,
               }}>
               {item}
             </Text>

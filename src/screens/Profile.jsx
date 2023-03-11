@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, ToastAndroid} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
@@ -6,20 +6,23 @@ import {
   HeaderBar,
   PasswordChangeModal,
   ProfileModal,
+  Loader,
 } from '../components';
 import {hp, COLOR, FONTS} from '../constants/GlobalTheme';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import RNBottomSheet from '../components/shared/RNBottomSheet';
 import {useDispatch, useSelector} from 'react-redux';
-import {logoutUser} from '../redux/authSlice';
+import {logoutUser, setAuth} from '../redux/authSlice';
 import ImagePicker from 'react-native-image-crop-picker';
 import {apiRequest} from '../utils/api';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 const Profile = () => {
   const [passwordModal, setPasswordModal] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
   const togglePasswordModal = () => setPasswordModal(!passwordModal);
   const toggleProfileModal = () => setProfileModal(!profileModal);
+  const [uploading, setUploading] = useState(false);
   const {user} = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
@@ -38,14 +41,17 @@ const Profile = () => {
   ];
 
   const uploadImage = async image => {
+    setUploading(true);
     let formData = new FormData();
     formData.append('id', user?.user_id);
-    formData.append('photo', image?.data);
-
-    const data = {id: user?.user_id, photo: image?.data};
+    formData.append('photo', {
+      type: 'image/jpeg',
+      uri: image?.path,
+      name: 'upload.jpg',
+    });
 
     const res = await apiRequest({
-      body: data,
+      body: formData,
       method: 'POST',
       url: '/update-profile-picture',
       header: {
@@ -53,14 +59,20 @@ const Profile = () => {
       },
     });
 
-    console.log(res?.data);
+    if (res?.status !== 200) {
+      setUploading(false);
+      ToastAndroid.show(res?.data?.message, 100);
+      return;
+    }
+
+    dispatch(setAuth({photo: res?.data?.photo}));
+    setUploading(false);
   };
 
   const openImagePicker = () => {
     ImagePicker.openPicker({
       cropping: true,
       compressImageQuality: 0.5,
-      includeBase64: true,
     })
       .then(image => {
         uploadImage(image);
@@ -84,13 +96,38 @@ const Profile = () => {
               width: hp(15),
               height: hp(15),
               borderRadius: 100,
+              borderWidth: 1,
               marginVertical: hp(2),
             }}>
-            <Image
-              style={{width: '100%', height: '100%', borderRadius: 100}}
-              resizeMode="cover"
-              source={require('../../assets/Images/noProfile.png')}
-            />
+            {uploading ? (
+              <Loader />
+            ) : (
+              <Image
+                style={{width: '100%', height: '100%', borderRadius: 100}}
+                resizeMode="cover"
+                source={
+                  user?.photo !== null
+                    ? {
+                        uri: `http://tcpindia.net/hrsummit/storage/uploads/Profile/${user?.photo}`,
+                      }
+                    : require('../../assets/Images/noProfile.png')
+                }
+              />
+            )}
+            <View
+              style={{
+                width: 30,
+                height: 30,
+                backgroundColor: COLOR.primary,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 50,
+                position: 'absolute',
+                bottom: -2,
+                right: 5,
+              }}>
+              <FeatherIcon name="camera" color={COLOR.white} />
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -138,7 +175,10 @@ const Profile = () => {
             </View>
           ))}
           <RNButton
-            onClick={() => dispatch(logoutUser())}
+            onClick={() => {
+              EncryptedStorage.clear();
+              dispatch(logoutUser());
+            }}
             leftIcon={
               <FeatherIcon
                 size={20}
@@ -161,7 +201,7 @@ const Profile = () => {
               resizeMode="contain"
               source={require('../../assets/Images/Logo.png')}
             />
-            <Text>Copyright by TCP DIGIWORKS</Text>
+            <Text>Developed by TCP DIGIWORKS</Text>
           </View>
         </View>
       </View>

@@ -43,6 +43,8 @@ const Home = () => {
     method: 'get',
   });
 
+  console.log(HomeData);
+
   const caresoleImages = () => {
     let data = [];
     caresoleData?.all_carousel?.map(caresole => {
@@ -117,15 +119,19 @@ const Home = () => {
       name: 'Feedback',
       data: {},
       icon: <InteractionIcon />,
-      routeName: 'Interaction',
+      routeName: 'Feedback',
     },
-    {
-      id: 10,
-      name: `Minutes of ${HomeData?.home?.no_of_hr_summit} HR summit`,
-      data: {summitNo: HomeData?.home?.no_of_hr_summit},
-      icon: <HRSummitMinutesIcon />,
-      routeName: 'Minutes HR Summit',
-    },
+    ...(HomeData?.home?.minute_status === '1'
+      ? [
+          {
+            id: 10,
+            name: `Minutes of ${HomeData?.home?.no_of_hr_summit} HR summit`,
+            data: {summitNo: HomeData?.home?.no_of_hr_summit},
+            icon: <HRSummitMinutesIcon />,
+            routeName: 'Minutes HR Summit',
+          },
+        ]
+      : []),
     {
       id: 11,
       name: 'Gallery',
@@ -197,7 +203,7 @@ const Home = () => {
         </TouchableOpacity> */}
       </View>
 
-      {caresoleLoading && homeLoading ? (
+      {caresoleLoading && homeLoading && HomeData?.home?.minute_status ? (
         <Loader />
       ) : (
         <View>

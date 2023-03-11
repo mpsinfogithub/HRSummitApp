@@ -1,5 +1,5 @@
-import {View, Text, ScrollView, Image} from 'react-native';
-import React from 'react';
+import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
 import {HeaderBar} from '../components';
 import {COLOR, FONTS, hp} from '../constants/GlobalTheme';
 import useFetch from '../hooks/useFetch';
@@ -7,10 +7,20 @@ import {LayoutScreen} from '.';
 import moment from 'moment';
 
 const Einvites = () => {
+  const [showDetails, setShowDetails] = useState(null);
   const {data: einvitesData, loading: einvitesLoading} = useFetch({
     url: '/all-einvite',
     method: 'get',
   });
+
+  const setActiveShowDetails = invite => {
+    setShowDetails(prev => {
+      return {
+        ...prev,
+        [invite?.id]: !showDetails?.[invite?.id],
+      };
+    });
+  };
 
   return (
     <LayoutScreen
@@ -28,7 +38,10 @@ const Einvites = () => {
               marginBottom: 15,
               borderRadius: 10,
             }}>
-            <View style={{height: hp(15)}}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              onPress={() => setActiveShowDetails(invite)}
+              style={{height: hp(15)}}>
               <Image
                 style={{
                   width: '100%',
@@ -41,12 +54,15 @@ const Einvites = () => {
                   uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${invite.photo}`,
                 }}
               />
-            </View>
+            </TouchableOpacity>
             <View style={{padding: 10}}>
-              <Text style={{fontFamily: FONTS.semiBold}}>{invite?.des}</Text>
+              {showDetails?.[invite?.id] && (
+                <Text style={{fontFamily: FONTS.regular}}>{invite?.des}</Text>
+              )}
               <Text
                 style={{
                   fontFamily: FONTS.regular,
+                  color: COLOR.gray,
                   fontSize: 12,
                   marginTop: 3,
                 }}>

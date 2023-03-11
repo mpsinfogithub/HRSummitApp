@@ -6,9 +6,9 @@ import {
   DelegateInfoScreen,
   DelegatesScreen,
   EinvitesScreen,
+  FeedbackScreen,
   GalleryScreen,
   HelpScreen,
-  InteractionScreen,
   LeadersScreen,
   MinutesHRSummitScreen,
   NotificationsScreen,
@@ -31,7 +31,7 @@ const AppStack = () => {
       <Stack.Screen name="Einvites" component={EinvitesScreen} />
       <Stack.Screen name="Speakers" component={SpeakersScreen} />
       <Stack.Screen name="Leaders" component={LeadersScreen} />
-      <Stack.Screen name="Interaction" component={InteractionScreen} />
+      <Stack.Screen name="Feedback" component={FeedbackScreen} />
       <Stack.Screen name="Delegates" component={DelegatesScreen} />
       <Stack.Screen name="Delegate Info" component={DelegateInfoScreen} />
       <Stack.Screen name="Accomodation" component={AccomodationScreen} />

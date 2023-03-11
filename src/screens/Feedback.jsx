@@ -4,10 +4,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar, RNButton, RNInput} from '../components';
 import {FONTS, hp} from '../constants/GlobalTheme';
 
-const Interaction = () => {
+const Feedback = () => {
   return (
     <SafeAreaView>
-      <HeaderBar headerTitle="Interaction" />
+      <HeaderBar headerTitle="Feedback" />
       <View style={{width: '85%', alignSelf: 'center', marginVertical: 10}}>
         <Text
           style={{
@@ -34,4 +34,4 @@ const Interaction = () => {
   );
 };
 
-export default Interaction;
+export default Feedback;
