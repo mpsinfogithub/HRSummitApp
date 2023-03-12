@@ -1,4 +1,4 @@
-import {Platform, ToastAndroid, View} from 'react-native';
+import {Platform, View} from 'react-native';
 import React from 'react';
 import RNInput from '../shared/RNInput';
 import RNButton from '../shared/RNButton';
@@ -8,6 +8,7 @@ import {useState} from 'react';
 import {COLOR, hp} from '../../constants/GlobalTheme';
 import {useSelector} from 'react-redux';
 import {apiRequest} from '../../utils/api';
+import {ToastMessage} from '../../utils/toastMsg';
 
 const ChangePassword = ({toggleModal}) => {
   const {user} = useSelector(state => state.auth);
@@ -36,13 +37,20 @@ const ChangePassword = ({toggleModal}) => {
 
       if (res?.status !== 200) {
         setLoading(false);
-        ToastAndroid.show(res?.data?.message, 1000);
+        ToastMessage({
+          type: 'error',
+          title: 'Password change error',
+          des: res?.data?.message,
+        });
         return;
       }
 
-      ToastAndroid.show('Password updated', 1000);
-      setLoading(false);
       toggleModal();
+      ToastMessage({
+        type: 'success',
+        des: 'Password Updated',
+      });
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);

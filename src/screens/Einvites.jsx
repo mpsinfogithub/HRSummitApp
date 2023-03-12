@@ -1,10 +1,11 @@
-import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {HeaderBar} from '../components';
 import {COLOR, FONTS, hp} from '../constants/GlobalTheme';
 import useFetch from '../hooks/useFetch';
 import {LayoutScreen} from '.';
 import moment from 'moment';
+import FastImage from 'react-native-fast-image';
 
 const Einvites = () => {
   const [showDetails, setShowDetails] = useState(null);
@@ -42,17 +43,19 @@ const Einvites = () => {
               activeOpacity={0.9}
               onPress={() => setActiveShowDetails(invite)}
               style={{height: hp(15)}}>
-              <Image
+              <FastImage
                 style={{
-                  width: '100%',
                   height: '100%',
+                  width: '100%',
                   borderTopLeftRadius: 10,
                   borderTopRightRadius: 10,
                 }}
-                resizeMode="cover"
                 source={{
                   uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${invite.photo}`,
+                  priority: FastImage.priority.normal,
+                  cache: 'immutable',
                 }}
+                resizeMode={FastImage.resizeMode.cover}
               />
             </TouchableOpacity>
             <View style={{padding: 10}}>

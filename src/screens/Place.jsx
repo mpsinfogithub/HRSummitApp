@@ -1,10 +1,11 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar, Loader} from '../components';
 import {FONTS, hp} from '../constants/GlobalTheme';
 import useFetch from '../hooks/useFetch';
 import {LayoutScreen} from '.';
+import FastImage from 'react-native-fast-image';
 
 const Place = ({route}) => {
   const routeData = route.params;
@@ -25,10 +26,19 @@ const Place = ({route}) => {
       headerBar={<HeaderBar headerTitle={routeData?.placeName} />}>
       <>
         <View style={{height: hp(25)}}>
-          <Image
-            source={{uri: data.image}}
-            style={{width: '100%', height: '100%'}}
-            resizeMode="cover"
+          <FastImage
+            style={{
+              height: '100%',
+              width: '100%',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+            }}
+            source={{
+              uri: data.image,
+              priority: FastImage.priority.normal,
+              cache: 'immutable',
+            }}
+            resizeMode={FastImage.resizeMode.cover}
           />
         </View>
         <ScrollView

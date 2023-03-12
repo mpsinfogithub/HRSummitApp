@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  ImageBackground,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, ScrollView, FlatList, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLOR, FONTS, hp, wp} from '../constants/GlobalTheme';
@@ -28,6 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import useFetch from '../hooks/useFetch';
 import {Loader} from '../components';
+import FastImage from 'react-native-fast-image';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -121,17 +114,13 @@ const Home = () => {
       icon: <InteractionIcon />,
       routeName: 'Feedback',
     },
-    ...(HomeData?.home?.minute_status === '1'
-      ? [
-          {
-            id: 10,
-            name: `Minutes of ${HomeData?.home?.no_of_hr_summit} HR summit`,
-            data: {summitNo: HomeData?.home?.no_of_hr_summit},
-            icon: <HRSummitMinutesIcon />,
-            routeName: 'Minutes HR Summit',
-          },
-        ]
-      : []),
+    {
+      id: 10,
+      name: `Minutes of ${HomeData?.home?.no_of_hr_summit} HR summit`,
+      data: {summitNo: HomeData?.home?.no_of_hr_summit},
+      icon: <HRSummitMinutesIcon />,
+      routeName: 'Minutes HR Summit',
+    },
     {
       id: 11,
       name: 'Gallery',
@@ -155,6 +144,8 @@ const Home = () => {
     },
   ];
 
+  console.log(HomeData?.home?.app_logo);
+
   return (
     <SafeAreaView
       style={{
@@ -173,10 +164,14 @@ const Home = () => {
         }}>
         <View style={{flexDirection: 'row'}}>
           <View style={{width: 40, height: 40}}>
-            <Image
-              resizeMode="contain"
-              source={require('../../assets/Images/Logo.png')}
-              style={{width: '100%', height: '100%'}}
+            <FastImage
+              style={{height: '100%', width: '100%'}}
+              source={{
+                uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
+                priority: FastImage.priority.normal,
+                cache: 'immutable',
+              }}
+              resizeMode={FastImage.resizeMode.contain}
             />
           </View>
           <View style={{marginLeft: hp(1)}}>
@@ -219,11 +214,7 @@ const Home = () => {
                 horizontalListRef = ref;
               }}>
               {caresoleImages()?.map((img, index) => (
-                <ImageBackground
-                  key={index}
-                  imageStyle={{borderRadius: 10}}
-                  source={{uri: img}}
-                  resizeMode="cover"
+                <FastImage
                   style={{
                     width: '100%',
                     height: '100%',
@@ -231,6 +222,13 @@ const Home = () => {
                     height: hp(18),
                     width: wp(85),
                   }}
+                  key={index}
+                  source={{
+                    uri: img,
+                    priority: FastImage.priority.high,
+                    cache: 'immutable',
+                  }}
+                  resizeMode={FastImage.resizeMode.cover}
                 />
               ))}
             </ScrollView>
@@ -301,6 +299,27 @@ const Home = () => {
               </TouchableOpacity>
             )}
           />
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+            }}>
+            <FastImage
+              style={{width: 30, height: 30, marginRight: 10}}
+              source={{
+                uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
+                priority: FastImage.priority.normal,
+                cache: 'immutable',
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+            <Text style={{fontFamily: FONTS.regular, fontSize: 12}}>
+              Developed by TCP DIGIWORKS
+            </Text>
+          </View>
         </View>
       )}
     </SafeAreaView>

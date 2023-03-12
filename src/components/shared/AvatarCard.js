@@ -1,7 +1,8 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {COLOR, FONTS, hp, wp} from '../../constants/GlobalTheme';
 import RNBottomSheet from './RNBottomSheet';
+import FastImage from 'react-native-fast-image';
 
 const AvatarCard = ({data, type = 'leader'}) => {
   const [userDetailsModal, setUserDetailsModal] = useState(false);
@@ -29,12 +30,14 @@ const AvatarCard = ({data, type = 'leader'}) => {
         elevation: 5,
       }}>
       <View style={{height: hp(20)}}>
-        <Image
+        <FastImage
+          style={{width: '100%', height: '100%'}}
           source={{
             uri: `http://tcpindia.net/hrsummit/storage/uploads/${ImageLink[type]}/${data?.photo}`,
+            priority: FastImage.priority.normal,
+            cache: 'immutable',
           }}
-          style={{width: '100%', height: '100%'}}
-          resizeMode="cover"
+          resizeMode={FastImage.resizeMode.cover}
         />
       </View>
       <View style={{paddingVertical: 5}}>
@@ -50,17 +53,20 @@ const AvatarCard = ({data, type = 'leader'}) => {
         </Text>
       </View>
       <RNBottomSheet
-        title="Person Details"
+        title=" "
         visible={userDetailsModal}
         setVisible={setUserDetailsModal}>
         <View style={{width: '90%', alignSelf: 'center', marginBottom: hp(4)}}>
           <View style={{flexDirection: 'row'}}>
             <View style={{width: wp(20), height: wp(20), borderRadius: 10}}>
-              <Image
+              <FastImage
+                style={{width: '100%', height: '100%', borderRadius: 10}}
                 source={{
                   uri: `http://tcpindia.net/hrsummit/storage/uploads/${ImageLink[type]}/${data?.photo}`,
+                  priority: FastImage.priority.normal,
+                  cache: 'immutable',
                 }}
-                style={{width: '100%', height: '100%', borderRadius: 10}}
+                resizeMode={FastImage.resizeMode.cover}
               />
             </View>
             <View style={{paddingHorizontal: 15}}>

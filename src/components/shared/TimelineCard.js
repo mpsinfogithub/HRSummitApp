@@ -38,7 +38,8 @@ const TimelineCard = ({data}) => {
                 fontSize: 12,
                 color: COLOR.gray,
               }}>
-              {tConvert(data?.begin)} - {tConvert(data?.end)}
+              {tConvert(data?.begin)} - {tConvert(data?.end)} ,{' '}
+              {data?.activity_date}
             </Text>
             <Text
               style={{

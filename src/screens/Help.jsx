@@ -1,16 +1,21 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar} from '../components';
 import {COLOR, FONTS, hp} from '../constants/GlobalTheme';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {openDialer} from '../utils/helpers';
 import useFetch from '../hooks/useFetch';
 import {LayoutScreen} from '.';
+import FastImage from 'react-native-fast-image';
 
 const Help = () => {
   const {data: happytoHelpData, loading: helpLoading} = useFetch({
     url: '/all-happy',
+    method: 'get',
+  });
+
+  const {data: HomeData} = useFetch({
+    url: '/home',
     method: 'get',
   });
 
@@ -26,7 +31,15 @@ const Help = () => {
             alignItems: 'center',
             marginVertical: hp(2),
           }}>
-          <Image source={require('../../assets/Images/Logo.png')} />
+          <FastImage
+            style={{width: '80%', height: '80%'}}
+            source={{
+              uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
+              priority: FastImage.priority.normal,
+              cache: 'immutable',
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
         </View>
         <View style={{width: '85%', alignSelf: 'center'}}>
           <Text

@@ -1,10 +1,8 @@
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
   ScrollView,
-  ToastAndroid,
   KeyboardAvoidingView,
   StatusBar,
   Platform,
@@ -19,6 +17,9 @@ import {setAuth} from '../redux/authSlice';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import FastImage from 'react-native-fast-image';
+import useFetch from '../hooks/useFetch';
+import {ToastMessage} from '../utils/toastMsg';
 
 const LoginComponent = ({toggleMode}) => {
   const dispatch = useDispatch();
@@ -40,7 +41,11 @@ const LoginComponent = ({toggleMode}) => {
 
       if (res?.status !== 200 || res?.data?.status !== 200) {
         setLoading(false);
-        ToastAndroid.show(res?.data?.message, 1000);
+        ToastMessage({
+          type: 'error',
+          title: 'Login Error',
+          des: res?.data?.message,
+        });
         return;
       }
 
@@ -125,12 +130,20 @@ const SignUpComponent = ({toggleMode}) => {
 
       if (res?.status !== 200) {
         setLoading(false);
-        ToastAndroid.show(res?.data?.message, 1000);
+        ToastMessage({
+          type: 'error',
+          title: 'Registration Error',
+          des: res?.data?.message,
+        });
         return;
       }
 
       setLoading(false);
       toggleMode(0);
+      ToastMessage({
+        type: 'success',
+        des: 'Registration Done',
+      });
     } catch (err) {
       setLoading(false);
       console.log(err.message);
@@ -150,7 +163,11 @@ const SignUpComponent = ({toggleMode}) => {
         }}
         onSubmit={values => {
           if (values.password !== values.confirm_password) {
-            ToastAndroid.show('Password not matched', 1000);
+            ToastMessage({
+              type: 'info',
+              title: 'Password Info',
+              des: 'Password not matched',
+            });
             return;
           }
           register(values);
@@ -217,6 +234,18 @@ const Login = () => {
     require('../../assets/Images/sponsers/image3.png'),
   ];
 
+  const {data: HomeData} = useFetch({
+    url: '/home',
+    method: 'get',
+  });
+
+  const {data: sponsersData} = useFetch({
+    url: '/all-sponsor',
+    method: 'get',
+  });
+
+  console.log(sponsersData);
+
   return (
     <ScrollView>
       <StatusBar backgroundColor={COLOR.lighGray} />
@@ -229,10 +258,14 @@ const Login = () => {
             justifyContent: 'flex-end',
             alignItems: 'center',
           }}>
-          <Image
-            resizeMode="contain"
-            source={require('../../assets/Images/Logo.png')}
-            style={{width: '50%', height: '80%'}}
+          <FastImage
+            style={{height: '80%', width: '50%'}}
+            source={{
+              uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
+              priority: FastImage.priority.normal,
+              cache: 'immutable',
+            }}
+            resizeMode={FastImage.resizeMode.contain}
           />
         </View>
         <View
@@ -294,14 +327,18 @@ const Login = () => {
                   flexDirection: 'row',
                   marginBottom: 15,
                 }}>
-                {sponserImages.map((image, index) => (
+                {sponsersData?.all_sponsor?.map((image, index) => (
                   <View
                     style={{width: 50, height: 50, marginRight: hp(1.5)}}
                     key={index}>
-                    <Image
+                    <FastImage
                       style={{height: '100%', width: '100%'}}
-                      resizeMode="contain"
-                      source={image}
+                      source={{
+                        uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${image?.photo}`,
+                        priority: FastImage.priority.normal,
+                        cache: 'immutable',
+                      }}
+                      resizeMode={FastImage.resizeMode.contain}
                     />
                   </View>
                 ))}

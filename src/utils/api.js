@@ -1,5 +1,6 @@
 import axios from 'axios';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import {ToastMessage} from './toastMsg';
 
 export const apiRequest = async ({url, body, method, header = {}}) => {
   let headers = {
@@ -25,6 +26,9 @@ export const apiRequest = async ({url, body, method, header = {}}) => {
 
     return res;
   } catch (err) {
-    console.log(err?.message);
+    ToastMessage({
+      type: 'error',
+      des: err?.message,
+    });
   }
 };

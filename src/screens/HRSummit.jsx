@@ -1,15 +1,20 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar, Loader} from '../components';
 import {FONTS, hp} from '../constants/GlobalTheme';
 import useFetch from '../hooks/useFetch';
 import {LayoutScreen} from '.';
+import FastImage from 'react-native-fast-image';
 
 const HRSummit = ({route}) => {
   const routeData = route.params;
   const {data: minutesData, loading: minuteLoading} = useFetch({
     url: '/minute',
+    method: 'get',
+  });
+
+  const {data: HomeData} = useFetch({
+    url: '/home',
     method: 'get',
   });
 
@@ -32,7 +37,15 @@ const HRSummit = ({route}) => {
             alignItems: 'center',
             marginVertical: hp(2),
           }}>
-          <Image source={require('../../assets/Images/Logo.png')} />
+          <FastImage
+            style={{width: '80%', height: '80%'}}
+            source={{
+              uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
+              priority: FastImage.priority.normal,
+              cache: 'immutable',
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
         </View>
         <View style={{width: '85%', alignSelf: 'center'}}>
           {Object.entries(Data).map(([key, value], index) => (

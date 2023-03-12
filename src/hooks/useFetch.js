@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addCache} from '../redux/cacheSlice';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
+import {ToastMessage} from '../utils/toastMsg';
 
 const useFetch = ({url, method, body}) => {
   const [data, setData] = useState(null);
@@ -44,7 +45,10 @@ const useFetch = ({url, method, body}) => {
       dispatch(addCache({url: url, data: res?.data}));
       setLoading(false);
     } catch (err) {
-      console.log(err?.message);
+      ToastMessage({
+        type: 'error',
+        des: err?.message,
+      });
     }
   };
 

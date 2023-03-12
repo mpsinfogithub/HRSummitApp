@@ -8,6 +8,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
 axios.defaults.baseURL = 'http://tcpindia.net/hrsummit/api';
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           <React.Fragment>
             <RNstatusBar />
             <Routes />
+            <Toast position="top" />
           </React.Fragment>
         </PersistGate>
       </NavigationContainer>

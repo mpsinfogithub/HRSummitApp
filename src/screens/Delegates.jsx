@@ -1,11 +1,11 @@
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar} from '../components';
 import {COLOR, FONTS, hp, wp} from '../constants/GlobalTheme';
 import {useNavigation} from '@react-navigation/native';
 import useFetch from '../hooks/useFetch';
 import {LayoutScreen} from '.';
+import FastImage from 'react-native-fast-image';
 
 const DelegateCard = ({delegate}) => {
   const navigation = useNavigation();
@@ -30,12 +30,14 @@ const DelegateCard = ({delegate}) => {
           padding: 10,
           borderRadius: 10,
         }}>
-        <Image
+        <FastImage
+          style={{height: '100%', width: '100%'}}
           source={{
             uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${delegate?.photo}`,
+            priority: FastImage.priority.normal,
+            cache: 'immutable',
           }}
-          resizeMode="contain"
-          style={{width: '100%', height: '100%'}}
+          resizeMode={FastImage.resizeMode.contain}
         />
       </TouchableOpacity>
       <Text style={{fontFamily: FONTS.regular, marginTop: 5}}>

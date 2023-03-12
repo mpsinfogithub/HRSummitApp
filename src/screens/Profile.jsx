@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity, ToastAndroid} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
@@ -16,6 +16,9 @@ import {logoutUser, setAuth} from '../redux/authSlice';
 import ImagePicker from 'react-native-image-crop-picker';
 import {apiRequest} from '../utils/api';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import FastImage from 'react-native-fast-image';
+import useFetch from '../hooks/useFetch';
+import {ToastMessage} from '../utils/toastMsg';
 
 const Profile = () => {
   const [passwordModal, setPasswordModal] = useState(false);
@@ -24,6 +27,11 @@ const Profile = () => {
   const toggleProfileModal = () => setProfileModal(!profileModal);
   const [uploading, setUploading] = useState(false);
   const {user} = useSelector(state => state.auth);
+
+  const {data: HomeData} = useFetch({
+    url: '/home',
+    method: 'get',
+  });
 
   const dispatch = useDispatch();
 
@@ -61,7 +69,10 @@ const Profile = () => {
 
     if (res?.status !== 200) {
       setUploading(false);
-      ToastAndroid.show(res?.data?.message, 100);
+      ToastMessage({
+        type: 'error',
+        des: res?.data?.message,
+      });
       return;
     }
 
@@ -102,16 +113,18 @@ const Profile = () => {
             {uploading ? (
               <Loader />
             ) : (
-              <Image
+              <FastImage
                 style={{width: '100%', height: '100%', borderRadius: 100}}
-                resizeMode="cover"
                 source={
                   user?.photo !== null
                     ? {
                         uri: `http://tcpindia.net/hrsummit/storage/uploads/Profile/${user?.photo}`,
+                        priority: FastImage.priority.normal,
+                        cache: 'immutable',
                       }
                     : require('../../assets/Images/noProfile.png')
                 }
+                resizeMode={FastImage.resizeMode.cover}
               />
             )}
             <View
@@ -196,10 +209,14 @@ const Profile = () => {
               justifyContent: 'center',
               marginVertical: 20,
             }}>
-            <Image
+            <FastImage
               style={{width: 30, height: 30, marginRight: 10}}
-              resizeMode="contain"
-              source={require('../../assets/Images/Logo.png')}
+              source={{
+                uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
+                priority: FastImage.priority.normal,
+                cache: 'immutable',
+              }}
+              resizeMode={FastImage.resizeMode.contain}
             />
             <Text>Developed by TCP DIGIWORKS</Text>
           </View>
@@ -209,7 +226,7 @@ const Profile = () => {
         title="Change Password"
         visible={passwordModal}
         setVisible={setPasswordModal}>
-        <PasswordChangeModal />
+        <PasswordChangeModal toggleModal={togglePasswordModal} />
       </RNBottomSheet>
       <RNBottomSheet
         title="User Details"

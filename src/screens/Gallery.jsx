@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, Platform} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderBar, Loader} from '../components';
@@ -14,6 +7,7 @@ import ImageView from 'react-native-image-viewing';
 import useFetch from '../hooks/useFetch';
 import Video from 'react-native-video';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import FastImage from 'react-native-fast-image';
 
 const ImagesSection = () => {
   const [visible, setIsVisible] = useState(false);
@@ -71,9 +65,14 @@ const ImagesSection = () => {
               width: wp(25),
               borderRadius: 10,
             }}>
-            <Image
-              source={{uri: item}}
-              style={{width: '100%', height: '100%', borderRadius: 10}}
+            <FastImage
+              style={{height: '100%', width: '100%', borderRadius: 10}}
+              source={{
+                uri: item,
+                priority: FastImage.priority.normal,
+                cache: 'immutable',
+              }}
+              resizeMode={FastImage.resizeMode.cover}
             />
           </TouchableOpacity>
         )}
@@ -103,13 +102,12 @@ const ImagesSection = () => {
 const VideosScreeen = () => {
   const [videoBottomSheet, setVideoBottomSheet] = useState(false);
   const [buffering, setBuffering] = useState(false);
+  const [activeVideo, setActiveVideo] = useState('');
 
   const {data: videoData, loading: videosLoading} = useFetch({
     url: '/all-video',
     method: 'get',
   });
-
-  console.log(videoData);
 
   if (videosLoading) {
     return <Loader />;
@@ -129,6 +127,9 @@ const VideosScreeen = () => {
         renderItem={({item, index}) => (
           <TouchableOpacity
             onPress={() => {
+              setActiveVideo(
+                `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${item?.video}`,
+              );
               setVideoBottomSheet(!videoBottomSheet);
             }}
             key={index}
@@ -138,17 +139,19 @@ const VideosScreeen = () => {
               width: wp(25),
               borderRadius: 10,
             }}>
-            <Image
-              source={{
-                uri: `https://static.vecteezy.com/system/resources/thumbnails/017/691/639/original/play-button-scene-icon-of-nice-animated-for-your-music-packs-easy-to-use-with-transparent-background-hd-motion-graphic-animation-free-free-video.jpg`,
-              }}
-              resizeMode="center"
+            <FastImage
               style={{
                 width: '100%',
                 height: '100%',
                 borderRadius: 10,
                 borderWidth: 1,
               }}
+              source={{
+                uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${item?.thumbnail}`,
+                priority: FastImage.priority.normal,
+                cache: 'immutable',
+              }}
+              resizeMode={FastImage.resizeMode.cover}
             />
           </TouchableOpacity>
         )}
@@ -183,7 +186,7 @@ const VideosScreeen = () => {
           )}
           <Video
             source={{
-              uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${videoData?.all_video?.[0]?.photo}`,
+              uri: activeVideo,
             }}
             onLoadStart={() => setBuffering(true)}
             onLoad={() => setBuffering(false)}

@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity, Linking} from 'react-native';
+import {View, Text, TouchableOpacity, Linking} from 'react-native';
 import React from 'react';
 import {HeaderBar, RNButton} from '../components';
 import {COLOR, FONTS, hp} from '../constants/GlobalTheme';
@@ -7,10 +7,13 @@ import {openDialer} from '../utils/helpers';
 import useFetch from '../hooks/useFetch';
 import moment from 'moment';
 import {LayoutScreen} from '.';
+import {useSelector} from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 const Accomodation = () => {
+  const {user} = useSelector(state => state.auth);
   const {data: accomodationData, loading: accomodationLoading} = useFetch({
-    url: '/all-accomodation',
+    url: `/get-accomodation/${user?.user_id}`,
     method: 'get',
   });
 
@@ -45,11 +48,15 @@ const Accomodation = () => {
             marginBottom: hp(3),
           }}>
           <View style={{height: hp(20)}}>
-            <Image
+            <FastImage
               style={{height: '100%', width: '100%'}}
+              key={index}
               source={{
-                uri: `http://tcpindia.net/hrsummit/storage/uploads/Accomodation/${accomodation.photo}`,
+                uri: `http://tcpindia.net/hrsummit/storage/uploads/Accomodation/${accomodation.accomo_photo}`,
+                priority: FastImage.priority.normal,
+                cache: 'immutable',
               }}
+              resizeMode={FastImage.resizeMode.cover}
             />
           </View>
 
