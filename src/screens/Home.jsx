@@ -36,8 +36,6 @@ const Home = () => {
     method: 'get',
   });
 
-  console.log(HomeData);
-
   const caresoleImages = () => {
     let data = [];
     caresoleData?.all_carousel?.map(caresole => {
@@ -144,8 +142,6 @@ const Home = () => {
     },
   ];
 
-  console.log(HomeData?.home?.app_logo);
-
   return (
     <SafeAreaView
       style={{
@@ -176,10 +172,10 @@ const Home = () => {
           </View>
           <View style={{marginLeft: hp(1)}}>
             <Text style={{fontFamily: FONTS.bold}}>
-              Hey {user?.name?.split(' ')[0]}
+              Hey Welcome {user?.name?.split(' ')[0]}
             </Text>
             <Text style={{fontFamily: FONTS.regular, fontSize: 12}}>
-              TCP DIGIWORKS
+              Developed by TCP Digiworks
             </Text>
           </View>
         </View>
@@ -299,27 +295,6 @@ const Home = () => {
               </TouchableOpacity>
             )}
           />
-
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '100%',
-            }}>
-            <FastImage
-              style={{width: 30, height: 30, marginRight: 10}}
-              source={{
-                uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
-                priority: FastImage.priority.normal,
-                cache: 'immutable',
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-            <Text style={{fontFamily: FONTS.regular, fontSize: 12}}>
-              Developed by TCP DIGIWORKS
-            </Text>
-          </View>
         </View>
       )}
     </SafeAreaView>

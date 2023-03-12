@@ -88,7 +88,7 @@ const Profile = () => {
       .then(image => {
         uploadImage(image);
       })
-      .catch(err => console.log(err.message));
+      .catch(err => ToastMessage({type: 'info', des: err?.message}));
   };
 
   return (

@@ -146,7 +146,6 @@ const SignUpComponent = ({toggleMode}) => {
       });
     } catch (err) {
       setLoading(false);
-      console.log(err.message);
     }
   };
 
@@ -237,14 +236,14 @@ const Login = () => {
   const {data: HomeData} = useFetch({
     url: '/home',
     method: 'get',
+    isProtected: false,
   });
 
   const {data: sponsersData} = useFetch({
     url: '/all-sponsor',
     method: 'get',
+    isProtected: false,
   });
-
-  console.log(sponsersData);
 
   return (
     <ScrollView>

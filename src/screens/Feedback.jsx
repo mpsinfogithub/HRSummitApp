@@ -49,7 +49,6 @@ const Feedback = () => {
       setFeedback('');
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   };
 

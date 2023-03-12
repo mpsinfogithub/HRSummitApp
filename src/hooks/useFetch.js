@@ -5,7 +5,7 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
 import {ToastMessage} from '../utils/toastMsg';
 
-const useFetch = ({url, method, body}) => {
+const useFetch = ({url, method, body, isProtected = true}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -21,12 +21,14 @@ const useFetch = ({url, method, body}) => {
       withCredentials: true,
     };
 
-    await EncryptedStorage.getItem('auth_token').then(data => {
-      const token = JSON.parse(data)?.token;
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-      }
-    });
+    if (isProtected) {
+      await EncryptedStorage.getItem('auth_token').then(data => {
+        const token = JSON.parse(data)?.token;
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+      });
+    }
 
     try {
       setLoading(true);

@@ -23,8 +23,6 @@ const Activities = () => {
     return data;
   };
 
-  console.log(Activities()[0]?.activityData);
-
   return (
     <LayoutScreen
       loading={activitiesLoading}
