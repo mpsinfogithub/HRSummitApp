@@ -11,7 +11,7 @@ const Card = ({data}) => {
     return {
       name: data?.name,
       company: data?.company,
-      destination: data?.designation,
+      designation: data?.designation,
       email: data?.email,
       phone: data?.phone,
     };

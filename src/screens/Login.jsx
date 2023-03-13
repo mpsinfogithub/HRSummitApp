@@ -258,7 +258,7 @@ const Login = () => {
             alignItems: 'center',
           }}>
           <FastImage
-            style={{height: '80%', width: '50%'}}
+            style={{height: '80%', width: '85%'}}
             source={{
               uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
               priority: FastImage.priority.normal,
@@ -272,20 +272,6 @@ const Login = () => {
             height: hp(65),
             alignItems: 'center',
           }}>
-          {/* <Text style={{fontFamily: FONTS.bold, fontSize: 24}}>
-            Get Started with TCP
-          </Text>
-          <Text
-            style={{
-              fontFamily: FONTS.regular,
-              fontSize: 14,
-              width: '75%',
-              textAlign: 'center',
-              marginTop: 10,
-              lineHeight: 23,
-            }}>
-            Provide your credentials recieved from TCP in your Email address
-          </Text> */}
           <View
             style={{
               flexDirection: 'row',

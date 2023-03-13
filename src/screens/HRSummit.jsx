@@ -38,7 +38,7 @@ const HRSummit = ({route}) => {
             marginVertical: hp(2),
           }}>
           <FastImage
-            style={{width: '80%', height: '80%'}}
+            style={{width: '85%', height: '80%'}}
             source={{
               uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
               priority: FastImage.priority.normal,

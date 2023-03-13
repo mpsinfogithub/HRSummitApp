@@ -22,7 +22,7 @@ const Feedback = () => {
 
   const dispatch = useDispatch();
 
-  const sentFeedback = async values => {
+  const sentFeedback = async () => {
     try {
       setLoading(true);
       const res = await apiRequest({
@@ -53,9 +53,14 @@ const Feedback = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <HeaderBar headerTitle="Feedback" />
-      <View style={{width: '85%', alignSelf: 'center', marginVertical: 10}}>
+      <View
+        style={{
+          width: '85%',
+          alignSelf: 'center',
+          marginVertical: 10,
+        }}>
         <Text
           style={{
             fontFamily: FONTS.regular,
@@ -78,16 +83,19 @@ const Feedback = () => {
         />
         <RNButton title={'Submit'} onClick={sentFeedback} loading={loading} />
       </View>
+      <Text
+        style={{
+          fontSize: 16,
+          fontFamily: FONTS.semiBold,
+          marginVertical: hp(2),
+          width: '85%',
+          alignSelf: 'center',
+        }}>
+        {feedbackLoading ? 'Loading others Feedback ...' : 'Others Feedbacks'}
+      </Text>
       <ScrollView
-        style={{width: '85%', alignSelf: 'center', marginVertical: 10}}>
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: FONTS.semiBold,
-            marginBottom: hp(2),
-          }}>
-          {feedbackLoading ? 'Loading others Feedback ...' : 'Others Feedbacks'}
-        </Text>
+        style={{width: '85%', alignSelf: 'center'}}
+        showsVerticalScrollIndicator={false}>
         {feedbackData?.feedback?.map((feedback, index) => (
           <View
             key={index}

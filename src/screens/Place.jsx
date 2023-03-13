@@ -30,8 +30,6 @@ const Place = ({route}) => {
             style={{
               height: '100%',
               width: '100%',
-              borderTopLeftRadius: 10,
-              borderTopRightRadius: 10,
             }}
             source={{
               uri: data.image,

@@ -210,7 +210,13 @@ const Profile = () => {
               marginVertical: 20,
             }}>
             <FastImage
-              style={{width: 30, height: 30, marginRight: 10}}
+              style={{
+                width: 30,
+                height: 30,
+                marginRight: 10,
+                backgroundColor: 'white',
+                borderRadius: 100,
+              }}
               source={{
                 uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
                 priority: FastImage.priority.normal,

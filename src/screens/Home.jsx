@@ -116,6 +116,7 @@ const Home = () => {
       id: 10,
       name: `Minutes of ${HomeData?.home?.no_of_hr_summit} HR summit`,
       data: {summitNo: HomeData?.home?.no_of_hr_summit},
+      status: HomeData?.home?.minute_status === '1' ? true : false,
       icon: <HRSummitMinutesIcon />,
       routeName: 'Minutes HR Summit',
     },
@@ -159,9 +160,14 @@ const Home = () => {
           justifyContent: 'space-between',
         }}>
         <View style={{flexDirection: 'row'}}>
-          <View style={{width: 40, height: 40}}>
+          <View style={{width: 40, height: 40, marginRight: 5}}>
             <FastImage
-              style={{height: '100%', width: '100%'}}
+              style={{
+                height: '100%',
+                width: '100%',
+                backgroundColor: 'white',
+                borderRadius: 100,
+              }}
               source={{
                 uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
                 priority: FastImage.priority.normal,
@@ -263,37 +269,44 @@ const Home = () => {
               marginVertical: hp(2),
             }}
             columnWrapperStyle={{
-              justifyContent: 'space-between',
+              justifyContent: 'flex-start',
+              gap: wp(5.6),
             }}
-            renderItem={({item, index}) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate(item.routeName, {...item?.data})
-                }
-                style={{width: wp(17), height: wp(30)}}>
-                <View
-                  key={index}
-                  style={{
-                    backgroundColor: COLOR.primary,
-                    width: '100%',
-                    height: wp(17),
-                    borderRadius: 10,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  {item.icon}
-                </View>
-                <Text
-                  style={{
-                    fontFamily: FONTS.medium,
-                    fontSize: 12,
-                    textAlign: 'center',
-                    marginTop: 5,
-                  }}>
-                  {item.name}
-                </Text>
-              </TouchableOpacity>
-            )}
+            renderItem={({item, index}) => {
+              if (item?.status === false) {
+                return '';
+              }
+
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate(item.routeName, {...item?.data})
+                  }
+                  style={{width: wp(17), height: wp(30)}}>
+                  <View
+                    key={index}
+                    style={{
+                      backgroundColor: COLOR.primary,
+                      width: '100%',
+                      height: wp(17),
+                      borderRadius: 10,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    {item.icon}
+                  </View>
+                  <Text
+                    style={{
+                      fontFamily: FONTS.medium,
+                      fontSize: 12,
+                      textAlign: 'center',
+                      marginTop: 5,
+                    }}>
+                    {item.name}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }}
           />
         </View>
       )}
