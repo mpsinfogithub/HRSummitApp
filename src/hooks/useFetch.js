@@ -16,6 +16,7 @@ const useFetch = ({url, method, body, isProtected = true}) => {
       setData(cache[url]);
       return;
     }
+
     let headers = {
       'Content-Type': 'application/json',
       withCredentials: true,

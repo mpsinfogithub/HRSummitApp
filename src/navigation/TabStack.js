@@ -1,8 +1,15 @@
-import {StyleSheet, TouchableOpacity, Linking, Platform} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Linking,
+  Platform,
+  View,
+  Text,
+} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeScreen, ProfileScreen} from '../screens';
-import {COLOR, hp} from '../constants/GlobalTheme';
+import {COLOR, FONTS, hp, wp} from '../constants/GlobalTheme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import useFetch from '../hooks/useFetch';
 
@@ -43,6 +50,20 @@ const TabStack = () => {
               }
               style={styles.TabMainButton}>
               <Ionicons name="logo-whatsapp" size={15} color={COLOR.white} />
+              <View
+                style={{
+                  position: 'absolute',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginVertical: 20,
+                  width: wp(100),
+                  top: hp(5),
+                }}>
+                <Text style={{fontSize: 12, fontFamily: FONTS.regular}}>
+                  Developed by TCP DIGIWORKS
+                </Text>
+              </View>
             </TouchableOpacity>
           ),
         }}
@@ -56,7 +77,7 @@ const TabStack = () => {
 
 const styles = StyleSheet.create({
   TabContainerStyles: {
-    bottom: hp(3.5),
+    bottom: hp(5.5),
     width: '43%',
     height: 55,
     borderRadius: 50,

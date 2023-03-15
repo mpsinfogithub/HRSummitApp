@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "542719038639",
+    "project_id": "rn-notification-53c81",
+    "storage_bucket": "rn-notification-53c81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542719038639:android:bc97e7b26eeb5ea5cf705a",
+        "android_client_info": {
+          "package_name": "com.hrsummitapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542719038639-q9l6j049r5drluln34ukre64qjcjun3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzkAfSpzZO4BzywfIJJkyBeGIX-6s3X-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542719038639-q9l6j049r5drluln34ukre64qjcjun3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "542719038639-fb8c4dk2prmdklpc717trl5t7a2c2koc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.hrSummitApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

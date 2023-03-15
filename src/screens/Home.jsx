@@ -21,6 +21,7 @@ import {useSelector} from 'react-redux';
 import useFetch from '../hooks/useFetch';
 import {Loader} from '../components';
 import FastImage from 'react-native-fast-image';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -30,6 +31,7 @@ const Home = () => {
     url: '/all-carousel',
     method: 'get',
   });
+  const notify = useSelector(state => state.notify);
 
   const {data: HomeData, loading: homeLoading} = useFetch({
     url: '/home',
@@ -79,7 +81,7 @@ const Home = () => {
     },
     {
       id: 9,
-      name: 'Accommodation',
+      name: 'Stay',
       data: {},
       icon: <AccomodationIcon />,
       routeName: 'Accomodation',
@@ -107,18 +109,10 @@ const Home = () => {
     },
     {
       id: 7,
-      name: 'Feedback',
+      name: 'Feedback/Query',
       data: {},
       icon: <InteractionIcon />,
       routeName: 'Feedback',
-    },
-    {
-      id: 10,
-      name: `Minutes of ${HomeData?.home?.no_of_hr_summit} HR summit`,
-      data: {summitNo: HomeData?.home?.no_of_hr_summit},
-      status: HomeData?.home?.minute_status === '1' ? true : false,
-      icon: <HRSummitMinutesIcon />,
-      routeName: 'Minutes HR Summit',
     },
     {
       id: 11,
@@ -140,6 +134,14 @@ const Home = () => {
       data: {},
       icon: <HelpingHandIcon />,
       routeName: 'Help',
+    },
+    {
+      id: 10,
+      name: `Minutes of last Meeting`,
+      data: {summitNo: HomeData?.home?.no_of_hr_summit},
+      status: HomeData?.home?.minute_status === '1' ? true : false,
+      icon: <HRSummitMinutesIcon />,
+      routeName: 'Minutes HR Summit',
     },
   ];
 
@@ -181,11 +183,15 @@ const Home = () => {
               Hey Welcome {user?.name?.split(' ')[0]}
             </Text>
             <Text style={{fontFamily: FONTS.regular, fontSize: 12}}>
-              Developed by TCP Digiworks
+              {`${
+                HomeData?.home?.no_of_hr_summit === undefined
+                  ? ''
+                  : HomeData?.home?.no_of_hr_summit
+              }`}
             </Text>
           </View>
         </View>
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={() => navigation.navigate('Notifications')}
           style={{
             borderWidth: 1,
@@ -197,7 +203,31 @@ const Home = () => {
             backgroundColor: COLOR.white,
           }}>
           <FeatherIcon name="bell" size={18} />
-        </TouchableOpacity> */}
+          {notify.count > 0 && (
+            <View
+              style={{
+                position: 'absolute',
+                top: 22,
+                left: 22,
+                backgroundColor: COLOR.primary,
+                height: wp(5.5),
+                width: wp(5.5),
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: 12,
+                borderRadius: 50,
+              }}>
+              <Text
+                style={{
+                  fontFamily: FONTS.semiBold,
+                  color: COLOR.white,
+                  fontSize: 12,
+                }}>
+                {notify?.count}
+              </Text>
+            </View>
+          )}
+        </TouchableOpacity>
       </View>
 
       {caresoleLoading && homeLoading && HomeData?.home?.minute_status ? (

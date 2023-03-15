@@ -204,19 +204,13 @@ const Profile = () => {
           />
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
+              flex: 0.4,
               justifyContent: 'center',
-              marginVertical: 20,
+              alignItems: 'center',
+              marginVertical: hp(2),
             }}>
             <FastImage
-              style={{
-                width: 30,
-                height: 30,
-                marginRight: 10,
-                backgroundColor: 'white',
-                borderRadius: 100,
-              }}
+              style={{width: '100%', height: '100%'}}
               source={{
                 uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
                 priority: FastImage.priority.normal,
@@ -224,7 +218,6 @@ const Profile = () => {
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
-            <Text>Developed by TCP DIGIWORKS</Text>
           </View>
         </View>
       </View>
