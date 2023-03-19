@@ -8,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import React, {useState} from 'react';
-import {COLOR, FONTS, hp} from '../constants/GlobalTheme';
+import {COLOR, FONTS, hp, wp} from '../constants/GlobalTheme';
 import {RNButton, RNInput} from '../components';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {apiRequest} from '../utils/api';
@@ -227,11 +227,11 @@ const Login = () => {
   const [activeMode, setActiveMode] = useState(MODES[0]);
   const toggleMode = (mode = 0) => setActiveMode(MODES[mode]);
 
-  const sponserImages = [
-    require('../../assets/Images/sponsers/image1.png'),
-    require('../../assets/Images/sponsers/image2.png'),
-    require('../../assets/Images/sponsers/image3.png'),
-  ];
+  // const sponserImages = [
+  //   require('../../assets/Images/sponsers/image1.png'),
+  //   require('../../assets/Images/sponsers/image2.png'),
+  //   require('../../assets/Images/sponsers/image3.png'),
+  // ];
 
   const {data: HomeData} = useFetch({
     url: '/home',
@@ -260,7 +260,7 @@ const Login = () => {
           <FastImage
             style={{height: '80%', width: '85%'}}
             source={{
-              uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
+              uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.host_logo}`,
               priority: FastImage.priority.normal,
               cache: 'immutable',
             }}
@@ -310,9 +310,21 @@ const Login = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   flexDirection: 'row',
-                  marginBottom: 15,
+                  marginBottom: 5,
                 }}>
-                {sponsersData?.all_sponsor?.map((image, index) => (
+                <View
+                  style={{width: wp(90), height: '80%', marginRight: hp(1.5)}}>
+                  <FastImage
+                    style={{height: '100%', width: '100%'}}
+                    source={{
+                      uri: `http://tcpindia.net/hrsummit/storage/uploads/Gallery/${HomeData?.home?.app_logo}`,
+                      priority: FastImage.priority.normal,
+                      cache: 'immutable',
+                    }}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+                {/* {sponsersData?.all_sponsor?.map((image, index) => (
                   <View
                     style={{width: 50, height: 50, marginRight: hp(1.5)}}
                     key={index}>
@@ -326,7 +338,7 @@ const Login = () => {
                       resizeMode={FastImage.resizeMode.contain}
                     />
                   </View>
-                ))}
+                ))} */}
               </View>
               <Text
                 style={{

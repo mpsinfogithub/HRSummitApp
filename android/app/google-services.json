@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "542719038639",
-    "project_id": "rn-notification-53c81",
-    "storage_bucket": "rn-notification-53c81.appspot.com"
+    "project_number": "817427676572",
+    "project_id": "tcpapp-ebc5b",
+    "storage_bucket": "tcpapp-ebc5b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:542719038639:android:bc97e7b26eeb5ea5cf705a",
+        "mobilesdk_app_id": "1:817427676572:android:21db3b7d522927eec55c59",
         "android_client_info": {
           "package_name": "com.hrsummitapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "542719038639-q9l6j049r5drluln34ukre64qjcjun3o.apps.googleusercontent.com",
+          "client_id": "817427676572-pjgtvdci6eud54t1f8d83n2nchh7dfgt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCzkAfSpzZO4BzywfIJJkyBeGIX-6s3X-E"
+          "current_key": "AIzaSyAX41sJkNQVWjZqxfDv5bYtuH4AruSqAO0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "542719038639-q9l6j049r5drluln34ukre64qjcjun3o.apps.googleusercontent.com",
+              "client_id": "817427676572-pjgtvdci6eud54t1f8d83n2nchh7dfgt.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "542719038639-fb8c4dk2prmdklpc717trl5t7a2c2koc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "org.reactjs.native.example.hrSummitApp"
-              }
             }
           ]
         }

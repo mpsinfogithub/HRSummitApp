@@ -15,6 +15,7 @@ const Speakers = () => {
     <LayoutScreen
       headerBar={<HeaderBar headerTitle="Speakers" />}
       scrollable={false}
+      data={speakersData?.all_speaker}
       loading={speakerLoading}>
       <>
         <FlatList

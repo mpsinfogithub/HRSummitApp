@@ -27,7 +27,8 @@ const HRSummit = ({route}) => {
 
   return (
     <LayoutScreen
-      headerBar={<HeaderBar headerTitle={`${routeData?.summitNo} HR Summit`} />}
+      data={minutesData?.minute?.title ? ['demo'] : []}
+      headerBar={<HeaderBar headerTitle={'Minutes of last meeting'} />}
       loading={minuteLoading}>
       <>
         <View

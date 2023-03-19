@@ -22,6 +22,7 @@ const Help = () => {
   return (
     <LayoutScreen
       loading={helpLoading}
+      data={happytoHelpData?.all_happy}
       headerBar={<HeaderBar headerTitle="Happy to Help" />}>
       <>
         <View

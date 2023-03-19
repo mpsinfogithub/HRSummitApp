@@ -20,8 +20,6 @@ const Feedback = () => {
     method: 'get',
   });
 
-  const dispatch = useDispatch();
-
   const sentFeedback = async () => {
     try {
       setLoading(true);
@@ -45,7 +43,6 @@ const Feedback = () => {
         des: 'Thanks for your Feedback',
       });
       setLoading(false);
-      dispatch(clearCache('/all-feedback'));
       setFeedback('');
     } catch (error) {
       setLoading(false);
@@ -54,7 +51,7 @@ const Feedback = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <HeaderBar headerTitle="Feedback" />
+      <HeaderBar headerTitle="Feedback/Query" />
       <View
         style={{
           width: '85%',

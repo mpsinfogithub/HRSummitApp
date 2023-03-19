@@ -26,6 +26,7 @@ const Einvites = () => {
   return (
     <LayoutScreen
       loading={einvitesLoading}
+      data={einvitesData?.einvite}
       headerBar={<HeaderBar headerTitle="E-invites" />}
       scrollable={false}>
       <ScrollView style={{width: '85%', alignSelf: 'center'}}>

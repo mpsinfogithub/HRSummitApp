@@ -9,6 +9,7 @@ import {
   clearNotificationCount,
   clearNotifications,
 } from '../redux/notificationsSlice';
+import NoData from './NoData';
 
 const Notifications = () => {
   const notify = useSelector(state => state.notify.notifcations);
@@ -19,49 +20,55 @@ const Notifications = () => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <HeaderBar headerTitle="Notifications" />
-      <ScrollView style={{width: '85%', alignSelf: 'center', marginTop: hp(2)}}>
-        {notify?.map((item, index) => (
-          <TouchableOpacity
-            activeOpacity={0.5}
-            key={index}
-            style={{
-              padding: 15,
-              borderWidth: 1,
-              borderColor: '#E7E1E1',
-              borderRadius: 10,
-              marginBottom: hp(3),
-            }}>
-            <Text style={{marginBottom: 3, fontFamily: FONTS.semiBold}}>
-              {item?.notification?.title}
-            </Text>
-            <Text style={{fontFamily: FONTS.regular}}>
-              {item?.notification?.body}
-            </Text>
-            <Text
+      {notify?.length < 1 ? (
+        <NoData text="No Notifications" />
+      ) : (
+        <ScrollView
+          style={{width: '85%', alignSelf: 'center', marginTop: hp(2)}}>
+          {notify?.map((item, index) => (
+            <TouchableOpacity
+              activeOpacity={1}
+              key={index}
               style={{
-                fontFamily: FONTS.regular,
-                fontSize: 12,
-                position: 'absolute',
-                right: 15,
-                top: 15,
-                color: COLOR.gray,
+                padding: 15,
+                borderWidth: 1,
+                borderColor: '#E7E1E1',
+                borderRadius: 10,
+                marginBottom: hp(3),
+                backgroundColor: COLOR.white,
               }}>
-              {moment(item?.sentTime).format('lll')}
-            </Text>
-          </TouchableOpacity>
-        ))}
+              <Text style={{marginBottom: 3, fontFamily: FONTS.semiBold}}>
+                {item?.notification?.title}
+              </Text>
+              <Text style={{fontFamily: FONTS.regular}}>
+                {item?.notification?.body}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: FONTS.regular,
+                  fontSize: 12,
+                  position: 'absolute',
+                  right: 15,
+                  top: 15,
+                  color: COLOR.gray,
+                }}>
+                {moment(item?.sentTime).format('lll')}
+              </Text>
+            </TouchableOpacity>
+          ))}
 
-        {notify.length !== 0 && (
-          <RNButton
-            title={'Clear All'}
-            onClick={() => dispatch(clearNotifications())}
-            cutomTextStyles={{fontSize: 14}}
-            customContainerStyles={{width: '30%', alignSelf: 'flex-start'}}
-          />
-        )}
-      </ScrollView>
+          {notify.length !== 0 && (
+            <RNButton
+              title={'Clear All'}
+              onClick={() => dispatch(clearNotifications())}
+              cutomTextStyles={{fontSize: 14}}
+              customContainerStyles={{width: '30%', alignSelf: 'flex-start'}}
+            />
+          )}
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };

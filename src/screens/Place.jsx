@@ -1,7 +1,6 @@
 import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {HeaderBar, Loader} from '../components';
+import {HeaderBar} from '../components';
 import {FONTS, hp} from '../constants/GlobalTheme';
 import useFetch from '../hooks/useFetch';
 import {LayoutScreen} from '.';
@@ -23,6 +22,7 @@ const Place = ({route}) => {
   return (
     <LayoutScreen
       loading={aboutLoading}
+      data={AboutData?.about?.des ? ['demo'] : []}
       headerBar={<HeaderBar headerTitle={routeData?.placeName} />}>
       <>
         <View style={{height: hp(25)}}>

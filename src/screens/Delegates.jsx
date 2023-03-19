@@ -57,6 +57,7 @@ const Delegates = () => {
     <LayoutScreen
       headerBar={<HeaderBar headerTitle="Delegates" />}
       scrollable={false}
+      data={delegatesData?.all_deligate}
       loading={delegatesLoading}>
       <>
         <FlatList

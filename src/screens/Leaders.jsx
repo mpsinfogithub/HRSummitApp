@@ -15,6 +15,7 @@ const Leaders = () => {
     <LayoutScreen
       headerBar={<HeaderBar headerTitle="Leaders" />}
       scrollable={false}
+      data={leadersData?.all_leader}
       loading={leadersLoading}>
       <>
         <FlatList

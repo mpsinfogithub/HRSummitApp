@@ -30,6 +30,7 @@ const Agenda = ({route}) => {
   return (
     <LayoutScreen
       loading={agendaLoading}
+      data={Events()}
       headerBar={<HeaderBar headerTitle="Agenda" />}>
       <>
         <LinearGradient

@@ -40,6 +40,7 @@ const Accomodation = () => {
   return (
     <LayoutScreen
       loading={accomodationLoading}
+      data={accomodationData?.accomodation}
       headerBar={<HeaderBar headerTitle="Accomodation" />}>
       {accomodationData?.accomodation?.map((accomodation, index) => (
         <View

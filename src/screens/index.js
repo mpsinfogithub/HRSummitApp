@@ -16,3 +16,4 @@ export {default as GalleryScreen} from './Gallery';
 export {default as ActivitiesScreen} from './Activities';
 export {default as NotificationsScreen} from './Notifications';
 export {default as LayoutScreen} from './ScreenLayout';
+export {default as NoDataScreen} from './NoData';

@@ -25,7 +25,6 @@ const Routes = () => {
   useEffect(() => {
     requestPermission();
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log(remoteMessage);
       dispatch(addNotifications(remoteMessage));
     });
 

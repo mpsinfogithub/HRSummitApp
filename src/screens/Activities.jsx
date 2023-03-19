@@ -26,6 +26,7 @@ const Activities = () => {
   return (
     <LayoutScreen
       loading={activitiesLoading}
+      data={Activities()}
       headerBar={<HeaderBar headerTitle="Activities" />}
       scrollable={false}>
       <>

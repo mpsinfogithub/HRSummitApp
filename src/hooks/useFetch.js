@@ -9,13 +9,16 @@ const useFetch = ({url, method, body, isProtected = true}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const {cache} = useSelector(state => state.cache);
+  // const {cache} = useSelector(state => state.cache);
 
   const getData = async () => {
-    if (cache?.hasOwnProperty(url)) {
-      setData(cache[url]);
-      return;
-    }
+    setLoading(true);
+
+    // if (cache?.hasOwnProperty(url)) {
+    //   setLoading(false);
+    //   setData(cache[url]);
+    //   return;
+    // }
 
     let headers = {
       'Content-Type': 'application/json',
@@ -32,7 +35,6 @@ const useFetch = ({url, method, body, isProtected = true}) => {
     }
 
     try {
-      setLoading(true);
       const res = await axios(url, {
         headers,
         method,
@@ -61,11 +63,11 @@ const useFetch = ({url, method, body, isProtected = true}) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (!cache[url]) {
-      getData();
-    }
-  }, [cache[url]]);
+  // useEffect(() => {
+  //   if (!cache[url]) {
+  //     getData();
+  //   }
+  // }, [cache[url]]);
 
   return {data, loading};
 };
