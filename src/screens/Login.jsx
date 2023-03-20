@@ -305,7 +305,7 @@ const Login = () => {
             <SignUpComponent toggleMode={toggleMode} />
           )}
           {activeMode === MODES[0] && (
-            <View style={{flex: 0.5}}>
+            <View style={{flex: 1, justifyContent: 'flex-start'}}>
               <View
                 style={{
                   justifyContent: 'center',
