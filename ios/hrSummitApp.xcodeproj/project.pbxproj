@@ -11,6 +11,15 @@
 		0A583EDB5BB04C20CDE706B8 /* Pods_hrSummitApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B51EEC7B8DF5A143B64F1A /* Pods_hrSummitApp.framework */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2220C9D329C80BF700E78F00 /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA8E2CC42DEC4CA6BAAC1F29 /* Inter-Black.ttf */; };
+		2220C9D429C80BF700E78F00 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4C7020CBCC844699084A713 /* Inter-Bold.ttf */; };
+		2220C9D529C80BF700E78F00 /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868CE7F3ED474170897C0442 /* Inter-ExtraBold.ttf */; };
+		2220C9D629C80BF700E78F00 /* Inter-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8894AEC84A7245C0BA970BC0 /* Inter-ExtraLight.ttf */; };
+		2220C9D729C80BF700E78F00 /* Inter-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8F9B5C1D611497DB8D56529 /* Inter-Light.ttf */; };
+		2220C9D829C80BF700E78F00 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10AD2DD497D74B04B861E8FA /* Inter-Medium.ttf */; };
+		2220C9D929C80BF700E78F00 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27BA4138DDC24E06BE64DADB /* Inter-Regular.ttf */; };
+		2220C9DA29C80BF700E78F00 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4757D0889734247B07B54B6 /* Inter-SemiBold.ttf */; };
+		2220C9DB29C80BF700E78F00 /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C491C2140144480EAD0B4F8E /* Inter-Thin.ttf */; };
 		22E780E929C2320900BA3A0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22E780E729C2144600BA3A0F /* GoogleService-Info.plist */; };
 		22E780EA29C2321000BA3A0F /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22691D4E2996E39E00DDAFBB /* AntDesign.ttf */; };
 		22E780EB29C2321000BA3A0F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22691D4C2996E39D00DDAFBB /* Entypo.ttf */; };
@@ -330,6 +339,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2220C9D329C80BF700E78F00 /* Inter-Black.ttf in Resources */,
+				2220C9D429C80BF700E78F00 /* Inter-Bold.ttf in Resources */,
+				2220C9D529C80BF700E78F00 /* Inter-ExtraBold.ttf in Resources */,
+				2220C9D629C80BF700E78F00 /* Inter-ExtraLight.ttf in Resources */,
+				2220C9D729C80BF700E78F00 /* Inter-Light.ttf in Resources */,
+				2220C9D829C80BF700E78F00 /* Inter-Medium.ttf in Resources */,
+				2220C9D929C80BF700E78F00 /* Inter-Regular.ttf in Resources */,
+				2220C9DA29C80BF700E78F00 /* Inter-SemiBold.ttf in Resources */,
+				2220C9DB29C80BF700E78F00 /* Inter-Thin.ttf in Resources */,
 				22E780FB29C2321C00BA3A0F /* Images.xcassets in Resources */,
 				22E780FA29C2321700BA3A0F /* LaunchScreen.storyboard in Resources */,
 				22E780EA29C2321000BA3A0F /* AntDesign.ttf in Resources */,

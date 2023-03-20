@@ -36,6 +36,13 @@ const Home = () => {
   const {data: HomeData, loading: homeLoading} = useFetch({
     url: '/home',
     method: 'get',
+    reload: false,
+  });
+
+  const {data: NotificationData} = useFetch({
+    url: '/update-notification-token',
+    method: 'patch',
+    body: {user_id: user?.user_id, token: user?.messageToken},
   });
 
   const caresoleImages = () => {
@@ -139,7 +146,7 @@ const Home = () => {
       id: 10,
       name: `Minutes of last Meeting`,
       data: {summitNo: HomeData?.home?.no_of_hr_summit},
-      status: HomeData?.home?.minute_status === '0' ? true : false,
+      status: HomeData?.home?.minute_status === '1' ? true : false,
       icon: <HRSummitMinutesIcon />,
       routeName: 'Minutes HR Summit',
     },

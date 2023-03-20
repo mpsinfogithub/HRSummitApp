@@ -31,6 +31,7 @@ const Profile = () => {
   const {data: HomeData} = useFetch({
     url: '/home',
     method: 'get',
+    reload: false,
   });
 
   const dispatch = useDispatch();

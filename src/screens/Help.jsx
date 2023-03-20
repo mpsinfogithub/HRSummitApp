@@ -17,6 +17,7 @@ const Help = () => {
   const {data: HomeData} = useFetch({
     url: '/home',
     method: 'get',
+    reload: false,
   });
 
   return (

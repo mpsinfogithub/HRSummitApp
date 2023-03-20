@@ -5,20 +5,20 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
 import {ToastMessage} from '../utils/toastMsg';
 
-const useFetch = ({url, method, body, isProtected = true}) => {
+const useFetch = ({url, method, body, isProtected = true, reload = true}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  // const {cache} = useSelector(state => state.cache);
+  const {cache} = useSelector(state => state.cache);
 
   const getData = async () => {
     setLoading(true);
 
-    // if (cache?.hasOwnProperty(url)) {
-    //   setLoading(false);
-    //   setData(cache[url]);
-    //   return;
-    // }
+    if (cache?.hasOwnProperty(url) && reload === false) {
+      setLoading(false);
+      setData(cache[url]);
+      return;
+    }
 
     let headers = {
       'Content-Type': 'application/json',

@@ -237,6 +237,7 @@ const Login = () => {
     url: '/home',
     method: 'get',
     isProtected: false,
+    reload: false,
   });
 
   const {data: sponsersData} = useFetch({

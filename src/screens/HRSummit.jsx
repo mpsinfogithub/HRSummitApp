@@ -16,6 +16,7 @@ const HRSummit = ({route}) => {
   const {data: HomeData} = useFetch({
     url: '/home',
     method: 'get',
+    reload: false,
   });
 
   const Data = {

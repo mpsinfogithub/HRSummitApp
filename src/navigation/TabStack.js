@@ -19,6 +19,7 @@ const TabStack = () => {
   const {data: HomeData} = useFetch({
     url: '/home',
     method: 'get',
+    reload: false,
   });
 
   return (
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   TabIconStyles: {
-    top: Platform.OS === 'ios' ? 0 : 15,
+    top: 15,
   },
   TabMainButton: {
     width: 35,

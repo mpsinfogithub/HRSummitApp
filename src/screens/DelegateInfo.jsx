@@ -57,6 +57,7 @@ const DelegateInfo = ({route}) => {
     <LayoutScreen
       headerBar={<HeaderBar headerTitle={`${name} - Delegates`} />}
       scrollable={false}
+      data={delegateData?.deligate_detail}
       loading={delegateLoading}>
       <>
         <FlatList
